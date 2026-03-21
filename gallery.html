@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery — PEDDI</title>
+    <link rel="icon" type="image/png" href="images/English Title.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0a0a0a; color: #fff; font-family: 'Montserrat', sans-serif; }
+
+        /* ===== HEADER ===== */
+        .gallery-header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(10,10,10,0.97);
+            border-bottom: 1px solid rgba(196, 135, 42, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 64px;
+        }
+        .back-home-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+        .back-home-link:hover { color: #C4872A; }
+        .gallery-header-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #C4872A;
+            letter-spacing: 0.1em;
+        }
+        .header-spacer { width: 120px; }
+
+        /* ===== BODY ===== */
+        .gallery-page-body {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+        }
+        .gallery-page-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-align: center;
+            letter-spacing: 0.08em;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .gallery-page-divider {
+            width: 60px;
+            height: 3px;
+            background: #C4872A;
+            margin: 0 auto 14px;
+            border-radius: 2px;
+        }
+        .gallery-page-subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+            letter-spacing: 0.03em;
+        }
+
+        /* ===== GRID ===== */
+        .gallery-full-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+        .gal-item {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            border-radius: 14px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        .gal-item:hover {
+            transform: translateY(-6px);
+            border-color: #C4872A;
+            box-shadow: 0 16px 40px rgba(196, 135, 42, 0.25);
+        }
+        .gal-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.5s;
+        }
+        .gal-item:hover img { transform: scale(1.06); }
+
+        /* ===== LIGHTBOX ===== */
+        .lb-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .lb-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Close button — top right gold circle */
+        .lb-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 52px;
+            height: 52px;
+            background: #C4872A;
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .lb-close:hover { background: #8B6B1E; transform: scale(1.1); }
+
+        /* Prev / Next — left & right gold circles */
+        .lb-prev, .lb-next {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 54px;
+            height: 54px;
+            background: #C4872A;
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .lb-prev { left: 20px; }
+        .lb-next { right: 20px; }
+        .lb-prev:hover, .lb-next:hover { background: #8B6B1E; }
+        .lb-prev:hover { transform: translateY(-50%) scale(1.1); }
+        .lb-next:hover { transform: translateY(-50%) scale(1.1); }
+
+        /* Image */
+        .lb-img-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 92vw;
+            max-height: 72vh;
+        }
+        .lb-img-wrap img {
+            max-width: 100%;
+            max-height: 72vh;
+            object-fit: contain;
+            border-radius: 12px;
+            transition: opacity 0.18s;
+        }
+
+        /* Download button */
+        .lb-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 36px;
+            background: #C4872A;
+            color: #fff;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .lb-download:hover { background: #8b0000; transform: scale(1.04); }
+
+        /* Caption bar */
+        .lb-caption {
+            margin-top: 14px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 12px 28px;
+            text-align: center;
+            min-width: 280px;
+        }
+        .lb-caption-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .lb-caption-counter {
+            font-size: 0.78rem;
+            color: #e00e2f;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .lb-caption-hint {
+            font-size: 0.72rem;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1100px) {
+            .gallery-full-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 700px) {
+            .gallery-full-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-page-body { padding: 40px 20px 80px; }
+            .gallery-header { padding: 0 20px; }
+            .lb-prev { left: 8px; }
+            .lb-next { right: 8px; }
+        }
+        @media (max-width: 450px) {
+            .gallery-full-grid { grid-template-columns: repeat(1, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="gallery-header">
+        <a href="index.html" class="back-home-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back to Home
+        </a>
+        <div class="gallery-header-logo">PEDDI</div>
+        <div class="header-spacer"></div>
+    </header>
+
+    <!-- BODY -->
+    <div class="gallery-page-body">
+        <h1 class="gallery-page-title">Gallery</h1>
+        <div class="gallery-page-divider"></div>
+        <p class="gallery-page-subtitle">Click on any image to view in full size</p>
+
+        <div class="gallery-full-grid" id="galleryGrid">
+            <!-- Images are injected by JS from the list below -->
+        </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lb-overlay" id="lbOverlay">
+        <button class="lb-close" id="lbClose">✕</button>
+        <button class="lb-prev" id="lbPrev">&#8249;</button>
+        <button class="lb-next" id="lbNext">&#8250;</button>
+        <div class="lb-img-wrap">
+            <img src="" alt="" id="lbImg" />
+        </div>
+        <a class="lb-download" id="lbDownload" download>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 4V5h2v8h1.17L12 15.17 9.83 13H11zm-6 4h14v2H5v-2z"/></svg>
+            Download
+        </a>
+        <div class="lb-caption">
+            <div class="lb-caption-title" id="lbTitle"></div>
+            <div class="lb-caption-counter" id="lbCounter"></div>
+            <div class="lb-caption-hint">Use &#8592; &#8594; arrows to navigate</div>
+        </div>
+    </div>
+
+    <script>
+    /* ===== GALLERY IMAGES ===== */
+    const images = [
+        { src: 'images/PEDDI FL_TWITTER.jpg',              alt: 'PEDDI Official First Look' },
+        { src: 'images/Peddi-WWM-4.jpg',                   alt: 'Ram Charan as PEDDI' },
+        { src: 'images/Peddi-HBD-Janhvi-Still.jpg',        alt: 'Janhvi Kapoor Movie Still' },
+        { src: 'images/Chikri-Still-1.jpg',                alt: 'Chikiri Movie Still' },
+        { src: 'images/Chikri-Still-2.jpg',                alt: 'Chikiri Movie Still 2' },
+        { src: 'images/Chikri-Still-3.jpg',                alt: 'Chikiri Movie Still 3' },
+        { src: 'images/Peddi-chikiri-Song-Out-Now-Still.jpg', alt: 'Chikiri Song Still' },
+        { src: 'images/Chikri-Song-Promo-Out-Story_Still.jpg', alt: 'Chikiri Song Promo Still' },
+        { src: 'images/Peddi-Janhvi-WWM-1.jpg',            alt: 'Janhvi Kapoor Look 1' },
+        { src: 'images/Peddi-Janhvi-WWM.jpg',            alt: 'Janhvi Kapoor Look 2' },
+        { src: 'images/SRK-HBD-Peddi-WWM.jpg',             alt: 'Shiva Rajkumar PEDDI' },
+        { src: 'images/Divyenndu-HBD-Peddi-WWM.jpg',       alt: 'Divyenndu PEDDI' },
+        { src: 'images/JB-Post-Peddi-WWM.jpg',             alt: 'Jagapathi Babu PEDDI' },
+        { src: 'images/RAI-RAI-RAA-RAA-SONG-OUT-TEL-THUMBNAIL.jpg', alt: 'Rai Rai Raa Raa Song' },
+        { src: 'images/RAI-RAI-RAA-RAA-OUT-NOW-WWM.jpg',   alt: 'Rai Rai Raa Raa Out Now' },
+        { src: 'images/Rai Rai RAA Trending_Plain.jpg',   alt: 'Rai Rai Raa Raa Song Look' },
+        { src: 'images/Peddi-FS-Out-Insta.jpg',            alt: 'PEDDI First Shot' },
+        { src: 'images/PEDDI PLAIN FL.jpg',                alt: 'PEDDI Plain First Look' },
+        { src: 'images/North-America-Release-WWM.jpg',     alt: 'North America Release' },
+        { src: 'images/Peddi-Ugadi-Insta.jpg',             alt: 'PEDDI Ugadi Special' },
+        { src: 'images/Peddi-Dolby-WWM.jpg',                 alt: 'PEDDI Dolby Atmos' },
+        { src: 'images/1(1).jpg',                          alt: 'PEDDI Behind the Scenes' },
+        { src: 'images/Peddi Insta.jpg.jpeg',                 alt: 'PEDDI Final Release Date' },
+    ];
+
+    /* ===== BUILD GRID ===== */
+    const grid = document.getElementById('galleryGrid');
+    images.forEach((img, i) => {
+        const div = document.createElement('div');
+        div.className = 'gal-item';
+        div.innerHTML = `<img src="${img.src}" alt="${img.alt}" loading="lazy" />`;
+        div.addEventListener('click', () => openLightbox(i));
+        grid.appendChild(div);
+    });
+
+    /* ===== LIGHTBOX ===== */
+    const overlay   = document.getElementById('lbOverlay');
+    const lbImg     = document.getElementById('lbImg');
+    const lbTitle   = document.getElementById('lbTitle');
+    const lbCounter = document.getElementById('lbCounter');
+    const lbDl      = document.getElementById('lbDownload');
+    let current = 0;
+
+    function openLightbox(index) {
+        current = index;
+        showImage();
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function showImage() {
+        lbImg.style.opacity = 0;
+        setTimeout(() => {
+            const img = images[current];
+            lbImg.src  = img.src;
+            lbImg.alt  = img.alt;
+            lbDl.href  = img.src;
+            lbDl.setAttribute('download', img.alt || 'peddi-image');
+            lbTitle.textContent   = img.alt;
+            lbCounter.textContent = `${current + 1} / ${images.length}`;
+            lbImg.style.opacity = 1;
+        }, 150);
+    }
+
+    function closeLightbox() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function navigate(dir) {
+        current = (current + dir + images.length) % images.length;
+        showImage();
+    }
+
+    lbImg.style.transition = 'opacity 0.15s';
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', () => navigate(-1));
+    document.getElementById('lbNext').addEventListener('click', () => navigate(1));
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeLightbox(); });
+
+    /* ===== DOWNLOAD FIX =====
+       The HTML `download` attribute is blocked on file:// protocol.
+       Use fetch + Blob to force a real download to the browser's Downloads folder.
+    ===========================*/
+    document.getElementById('lbDownload').addEventListener('click', async function(e) {
+        e.preventDefault();
+        const img = images[current];
+        const filename = img.src.split('/').pop(); // e.g. "RC.jpg"
+        try {
+            const response = await fetch(img.src);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            // Fallback: open image in new tab so user can right-click save
+            window.open(img.src, '_blank');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!overlay.classList.contains('active')) return;
+        if (e.key === 'ArrowLeft')  navigate(-1);
+        if (e.key === 'ArrowRight') navigate(1);
+        if (e.key === 'Escape')     closeLightbox();
+    });
+    </script>
+
+    <!-- BACKGROUND AUDIO -->
+    <audio id="bgAudio" src="Peddi-Theme.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
+
+    <!-- SOUND TOGGLE BUTTON -->
+    <button class="sound-btn" id="soundBtn" aria-label="Toggle sound" title="Play Music">
+        <svg class="sound-icon" id="soundIcon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

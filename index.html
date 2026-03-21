@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PEDDI - The most anticipated Pan-India blockbuster starring Ram Charan, Janhvi Kapoor, and Shiva Rajkumar. Experience the epic tale of destiny, power, and redemption.">
+    <meta name="keywords" content="PEDDI, Ram Charan, Janhvi Kapoor, Shiva Rajkumar, Pan-India movie, Telugu movie, action drama">
+    <meta property="og:title" content="PEDDI - Official Website">
+    <meta property="og:description" content="The most anticipated Pan-India blockbuster is here. PEDDI - Coming Soon.">
+    <title>PEDDI - Official Website</title>
+    <link rel="icon" type="image/png" href="images/English Title.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- SIDEBAR MENU -->
+    <div class="sidebar" id="sidebar">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">✕</button>
+        <div class="sidebar-logo">PEDDI</div>
+        <nav class="sidebar-nav">
+            <a href="#home" class="sidebar-link" onclick="closeSidebar()">Home</a>
+            <a href="#story" class="sidebar-link" onclick="closeSidebar()">Story</a>
+            <a href="cast.html" class="sidebar-link">Cast</a>
+            <a href="gallery.html" class="sidebar-link">Gallery</a>
+            <a href="videos.html" class="sidebar-link">Videos</a>
+            <a href="#trailer" class="sidebar-link" onclick="closeSidebar()">Trailer</a>
+            <a href="#events" class="sidebar-link" onclick="closeSidebar()">Events</a>
+        </nav>
+        <div class="sidebar-social">
+            <a href="https://www.instagram.com/peddimovie/" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://x.com/PeddiMovieOffl" class="social-icon" aria-label="Twitter/X" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 5.892zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://in.bookmyshow.com/movies/peddi/et00439772" class="social-icon" aria-label="BookMyShow" target="_blank" rel="noopener noreferrer">
+                <img src="images/bookmyshow-office-android-ticket-android.jpg" alt="BookMyShow" class="social-logo" style="filter: hue-rotate(-10deg) saturate(1.2);" />
+            </a>
+            <a href="https://www.facebook.com/p/PEDDI-61574819518909/" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+        </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo" id="hamburger" style="cursor: pointer;">PEDDI</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-link active" id="nav-home">Home</a></li>
+            <li><a href="#story" class="nav-link" id="nav-story">Story</a></li>
+            <li><a href="cast.html" class="nav-link" id="nav-cast">Cast</a></li>
+            <li><a href="gallery.html" class="nav-link" id="nav-gallery">Gallery</a></li>
+            <li><a href="videos.html" class="nav-link" id="nav-videos">Videos</a></li>
+            <li><a href="#trailer" class="nav-link" id="nav-trailer">Trailer</a></li>
+            <li><a href="#events" class="nav-link" id="nav-events">Events</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="hero-bg-fixed"></div>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <p class="hero-presenter">A VRIDDHI CINEMAS PRODUCTION</p>
+            <div class="hero-title-wrap">
+                <img src="images/English Title.png" alt="PEDDI" class="hero-main-image" />
+            </div>
+            <p class="hero-tagline">WELCOME TO THE WORLD OF <span>PEDDI</span></p>
+            <div class="release-badge">
+                <span class="release-icon">🎬</span>
+                <span>Worldwide Release: APRIL 30TH 2026</span>
+            </div>
+            <div class="countdown" id="countdown">
+                <div class="countdown-box">
+                    <span class="count-num" id="days">000</span>
+                    <span class="count-label">DAYS</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="count-num" id="hours">00</span>
+                    <span class="count-label">HOURS</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="count-num" id="minutes">00</span>
+                    <span class="count-label">MINUTES</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="count-num" id="seconds">00</span>
+                    <span class="count-label">SECONDS</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="videos.html" class="btn-primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    WATCH VIDEOS
+                </a>
+                <a href="#" class="btn-secondary" id="addReminderBtn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Add Reminder
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOVIE INFO CARDS -->
+    <section class="movie-info" id="info">
+        <div class="info-grid">
+            <div class="info-card fade-in">
+                <span class="info-icon">🎭</span>
+                <span class="info-label">GENRE</span>
+                <span class="info-value">Action • Drama</span>
+            </div>
+            <div class="info-card fade-in">
+                <span class="info-icon">🎬</span>
+                <span class="info-label">DIRECTOR</span>
+                <span class="info-value">BUCHI BABU SANA</span>
+            </div>
+            <div class="info-card fade-in">
+                <span class="info-icon">🌐</span>
+                <span class="info-label">LANGUAGES</span>
+                <span class="info-value">Telugu • Hindi • Tamil • Kannada • Malayalam</span>
+            </div>
+            <div class="info-card fade-in">
+                <span class="info-icon">📅</span>
+                <span class="info-label">RELEASE DATE</span>
+                <span class="info-value">APRIL 30TH 2026</span>
+            </div>
+            <div class="info-card fade-in">
+                <span class="info-icon">⏱️</span>
+                <span class="info-label">RUNTIME</span>
+                <span class="info-value">TBA</span>
+            </div>
+            <div class="info-card fade-in">
+                <span class="info-icon">🎥</span>
+                <span class="info-label">PRODUCTION</span>
+                <span class="info-value">Vriddhi Cinemas</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORY SECTION -->
+    <section class="story" id="story">
+        <div class="story-bg">
+            <img src="images/PEDDI%20PLAIN%20FL.jpg" alt="Story background" class="story-bg-img" />
+            <div class="story-overlay"></div>
+        </div>
+        <div class="story-content fade-in">
+            <h2 class="section-title">The Story</h2>
+            <div class="section-divider"></div>
+            <p class="story-text">
+                Set in the 1980s rural Andhra Pradesh, <strong>PEDDI</strong> follows the inspiring journey of a spirited villager 
+                who becomes a symbol of hope and unity for his entire community. In a land where power corrupts and the mighty 
+                oppress the weak, one man dares to challenge the status quo.
+            </p>
+            <p class="story-text">
+                When his village faces the threat of a powerful rival determined to crush their spirit and seize their pride, 
+                <strong>PEDDI</strong> rises to the occasion. Armed with nothing but determination and the will of his people, 
+                he unites the entire community through the universal language of sports. What begins as a fight for survival 
+                transforms into a powerful movement of resilience, dignity, and collective strength.
+            </p>
+            <p class="story-text">
+                Through sweat, sacrifice, and unwavering spirit, <strong>PEDDI</strong> leads his village to reclaim their honor 
+                and stand against all odds. A saga of raw power, broken boundaries, and an unbreakable spirit — celebrating the 
+                victory of the underdog and the triumph of unity over tyranny.
+            </p>
+            <p class="story-text">
+                A Pan-India epic that transcends borders — in language, in scale, and in heart. 
+                When destiny calls, <strong>PEDDI</strong> answers.
+            </p>
+            <a href="#trailer" class="btn-outline">Discover More</a>
+        </div>
+    </section>
+
+    <!-- CAST SECTION (Preview) -->
+    <section class="cast-section" id="cast">
+        <div class="container">
+            <h2 class="section-title fade-in">The Cast</h2>
+            <div class="section-divider"></div>
+            <div class="cast-preview-grid">
+                <div class="cast-card-new fade-in">
+                    <div class="cast-image-wrap">
+                        <img src="images/Peddi-WWM-4.jpg" alt="Ram Charan" class="cast-image" />
+                        <div class="cast-glow"></div>
+                    </div>
+                    <div class="cast-info-new">
+                        <h3 class="cast-name">Ram Charan</h3>
+                        <p class="cast-char">PEDDI</p>
+                    </div>
+                </div>
+                <div class="cast-card-new fade-in">
+                    <div class="cast-image-wrap">
+                        <img src="images/Peddi-Janhvi-WWM-1.jpg" alt="Janhvi Kapoor" class="cast-image" />
+                        <div class="cast-glow"></div>
+                    </div>
+                    <div class="cast-info-new">
+                        <h3 class="cast-name">Janhvi Kapoor</h3>
+                        <p class="cast-char">ACHIYYAMMA</p>
+                    </div>
+                </div>
+                <div class="cast-card-new fade-in">
+                    <div class="cast-image-wrap">
+                        <img src="images/SRK-HBD-Peddi-WWM.jpg" alt="Shiva Rajkumar" class="cast-image" />
+                        <div class="cast-glow"></div>
+                    </div>
+                    <div class="cast-info-new">
+                        <h3 class="cast-name">Shiva Rajkumar</h3>
+                        <p class="cast-char">GOURNAIDU</p>
+                    </div>
+                </div>
+                <div class="cast-card-new fade-in">
+                    <div class="cast-image-wrap">
+                        <img src="images/Divyenndu-HBD-Peddi-WWM.jpg" alt="Divyenndu" class="cast-image" />
+                        <div class="cast-glow"></div>
+                    </div>
+                    <div class="cast-info-new">
+                        <h3 class="cast-name">Divyenndu Sharma</h3>
+                        <p class="cast-char">RAMBUJJI</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:2.5rem;">
+                <a href="cast.html" class="btn-view-more-cast">VIEW MORE &nbsp;&#8594;</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- GALLERY SECTION -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="section-title fade-in">Gallery</h2>
+            <div class="section-divider"></div>
+            <div class="gallery-grid gallery-preview-grid">
+                <div class="gallery-item fade-in">
+                    <img src="images/PEDDI%20FL_TWITTER.jpg" alt="PEDDI Official First Look" class="gallery-img" />
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="images/Peddi-WWM-4.jpg" alt="Ram Charan as PEDDI" class="gallery-img" />
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="images/Peddi-HBD-Janhvi-Still.jpg" alt="Janhvi Kapoor Movie Still" class="gallery-img" />
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="images/Chikri-Still-1.jpg" alt="PEDDI Movie Still" class="gallery-img" />
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:2.5rem;">
+                <a href="gallery.html" class="btn-view-more-cast">VIEW MORE &nbsp;&#8594;</a>
+            </div>
+        </div>
+    </section>
+    <!-- TRAILER SECTION -->
+    <section class="trailer-section" id="trailer">
+        <div class="trailer-bg">
+            <img src="images/PEDDI%20TWITTER%20.jpg" alt="Trailer Background" class="trailer-bg-img" />
+            <div class="trailer-overlay"></div>
+        </div>
+        <div class="container trailer-content">
+            <h2 class="section-title fade-in">Official Trailer</h2>
+            <div class="section-divider"></div>
+            <div class="trailer-video-wrap fade-in">
+                <div class="video-placeholder large" data-video="2y_DH5gIrCU" id="trailerPlaceholder">
+                    <img src="images/Telugu-Thumb.jpg" alt="Peddi First Shot Glimpse" class="video-thumb large-thumb" />
+                    <div class="trailer-coming-soon">
+                        <p class="trailer-label">PEDDI FIRST SHOT</p>
+                        <p class="trailer-sub">Experience the beginning</p>
+                    </div>
+                    <button class="play-btn large-play" aria-label="Play video">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTS SECTION -->
+    <section class="events-section" id="events">
+        <div class="container">
+            <h2 class="section-title fade-in">Upcoming Events &amp; Updates</h2>
+            <div class="section-divider"></div>
+            <div class="events-layout">
+                <!-- Events Panel -->
+                <div class="events-panel fade-in">
+                    <div class="panel-header">
+                        <span class="panel-icon">📅</span>
+                        <h3 class="panel-title">Events &amp; Announcements</h3>
+                    </div>
+                    <div class="events-list">
+                        <div class="event-item">
+                            <div class="event-icon-wrap">
+                                <span class="event-icon">🎵</span>
+                            </div>
+                            <div class="event-content">
+                                <h4 class="event-title">Music Launch Event</h4>
+                                <p class="event-date">TBA 2026</p>
+                                <p class="event-desc">Grand music launch event featuring the musical maestros behind PEDDI.</p>
+                                <span class="event-tag music">MUSIC EVENT</span>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-icon-wrap">
+                                <span class="event-icon">🎞️</span>
+                            </div>
+                            <div class="event-content">
+                                <h4 class="event-title">World Premiere</h4>
+                                <p class="event-date">APRIL 29TH 2026</p>
+                                <p class="event-desc">Join the cast and crew at the exclusive world premiere of PEDDI.</p>
+                                <span class="event-tag upcoming">UPCOMING</span>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-icon-wrap">
+                                <span class="event-icon">🌐</span>
+                            </div>
+                            <div class="event-content">
+                                <h4 class="event-title">Worldwide Theatrical Release</h4>
+                                <p class="event-date">APRIL 30TH 2026</p>
+                                <p class="event-desc">PEDDI releases across theatres worldwide simultaneously in 5 languages.</p>
+                                <span class="event-tag release">THEATRICAL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats Panel -->
+                <div class="stats-panel fade-in">
+                    <div class="panel-header">
+                        <span class="panel-icon">⚡</span>
+                        <h3 class="panel-title">Why PEDDI?</h3>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-num">5+</span>
+                            <span class="stat-label">Languages</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">3</span>
+                            <span class="stat-label">Stars</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">1</span>
+                            <span class="stat-label">Epic Story</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">∞</span>
+                            <span class="stat-label">Entertainment</span>
+                        </div>
+                    </div>
+                    <div class="cast-mini-cards">
+                        <div class="mini-card">
+                            <img src="images/Peddi-WWM-4.jpg" alt="Ram Charan" />
+                            <span>Ram Charan</span>
+                        </div>
+                        <div class="mini-card">
+                            <img src="images/Peddi-Janhvi-WWM-1.jpg" alt="Janhvi Kapoor" />
+                            <span>Janhvi Kapoor</span>
+                        </div>
+                        <div class="mini-card">
+                            <img src="images/SRK-HBD-Peddi-WWM.jpg" alt="Shiva Rajkumar" />
+                            <span>Shiva Rajkumar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">PEDDI</div>
+            <p class="footer-tagline">Power. Passion. Destiny.</p>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/peddimovie/" class="footer-social-btn" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com/PeddiMovieOffl" class="footer-social-btn" aria-label="Twitter/X" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 5.892zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://in.bookmyshow.com/movies/peddi/et00439772" class="footer-social-btn" aria-label="BookMyShow" target="_blank" rel="noopener noreferrer">
+                    <img src="images/bookmyshow-office-android-ticket-android.jpg" alt="BookMyShow" class="footer-social-logo" style="filter: hue-rotate(-10deg) saturate(1.2);" />
+                </a>
+                <a href="https://www.facebook.com/p/PEDDI-61574819518909/" class="footer-social-btn" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#story">Story</a>
+                <a href="#cast">Cast</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="#events">Events</a>
+            </div>
+            <div class="footer-line"></div>
+            <p class="footer-credits">© 2026 PEDDI — Vriddhi Cinemas. All Rights Reserved.</p>
+            <p class="footer-credits small">Starring Ram Charan · Janhvi Kapoor · Shiva Rajkumar</p>
+        </div>
+    </footer>
+
+    <!-- BACKGROUND AUDIO -->
+    <audio id="bgAudio" src="Peddi-Theme.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
+
+    <!-- SOUND TOGGLE BUTTON -->
+    <button class="sound-btn" id="soundBtn" aria-label="Toggle sound" title="Play Music">
+        <svg class="sound-icon" id="soundIcon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

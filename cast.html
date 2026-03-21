@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cast &amp; Crew — PEDDI</title>
+    <link rel="icon" type="image/png" href="images/English Title.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ===== CAST PAGE LAYOUT ===== */
+        body { background: #0a0a0a; }
+
+        .cast-page-header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(10,10,10,0.97);
+            border-bottom: 1px solid rgba(196, 135, 42, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 64px;
+        }
+        .back-home-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+        .back-home-link:hover { color: #C4872A; }
+        .cast-page-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #C4872A;
+            letter-spacing: 0.1em;
+        }
+        /* spacer to balance flex row */
+        .cast-page-header-right { width: 120px; }
+
+        .cast-page-body {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+        }
+        .cast-page-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-align: center;
+            color: #fff;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+        .cast-page-divider {
+            width: 60px;
+            height: 3px;
+            background: #C4872A;
+            margin: 0 auto 16px;
+            border-radius: 2px;
+        }
+        .cast-page-subtitle {
+            text-align: center;
+            color: #888;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.92rem;
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.03em;
+        }
+
+        /* ===== TABS ===== */
+        .cast-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 3rem;
+        }
+        .cast-tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 40px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .cast-tab-btn:hover { border-color: #C4872A; background: rgba(196, 135, 42, 0.1); }
+        .cast-tab-btn.active { background: #C4872A; border-color: #C4872A; color: #fff; box-shadow: 0 0 28px rgba(196, 135, 42, 0.45); }
+
+        /* ===== CAST GRID (5 cols) ===== */
+        .cast-full-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 22px;
+        }
+        .cast-card-page {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #1a1a1a;
+            border: 1px solid rgba(196,135,42,0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .cast-card-page:hover {
+            border-color: #C4872A;
+            box-shadow: 0 20px 50px rgba(196, 135, 42, 0.25);
+            transform: translateY(-8px);
+        }
+        .cast-card-page .cast-img-wrap {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+        .cast-card-page img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.6s;
+        }
+        .cast-card-page:hover img { transform: scale(1.07); }
+        .cast-card-page .img-gradient {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 65%;
+            background: linear-gradient(to top, rgba(0,0,0,0.93), transparent);
+        }
+        .cast-card-page .card-bottom {
+            padding: 16px 18px;
+            border-top: 1px solid rgba(196,135,42,0.25);
+            background: rgba(255,255,255,0.03);
+        }
+        .cast-card-page .card-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 4px;
+            letter-spacing: 0.5px;
+        }
+        .cast-card-page .card-role {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            color: #888;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        /* ===== CREW GRID (4 cols, responsive) ===== */
+        .crew-page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+        }
+        .crew-page-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(196,135,42,0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .crew-page-card:hover {
+            border-color: #C4872A;
+            box-shadow: 0 16px 44px rgba(196, 135, 42, 0.25);
+            transform: translateY(-6px);
+        }
+        .crew-page-card .crew-thumb {
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+        }
+        .crew-page-card .crew-thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.5s;
+        }
+        .crew-page-card:hover .crew-thumb img { transform: scale(1.06); }
+        .crew-page-card .crew-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 14px 16px 12px;
+            background: linear-gradient(to top, rgba(0,0,0,0.92) 60%, transparent);
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+        .crew-overlay-icon {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: #C4872A;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .crew-overlay-text .crew-card-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 2px;
+        }
+        .crew-overlay-text .crew-card-role {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            color: #C4872A;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .crew-page-card .crew-card-bottom {
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.02);
+        }
+        .crew-page-card .crew-card-desc {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.81rem;
+            color: #888;
+            line-height: 1.5;
+            margin: 0 0 10px;
+        }
+        .crew-view-detail {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #C4872A;
+            letter-spacing: 0.04em;
+        }
+
+        /* ===== DETAIL MODAL ===== */
+        .detail-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-y: auto;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .detail-modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .detail-modal {
+            background: #111;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 780px;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(30px);
+            transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        .detail-modal-overlay.active .detail-modal { transform: translateY(0); }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 16px; right: 16px;
+            width: 42px; height: 42px;
+            background: #e00e2f;
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .modal-close-btn:hover { background: #8b0000; transform: scale(1.1); }
+
+        .modal-header {
+            padding: 30px 32px 22px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .modal-header-icon {
+            width: 66px; height: 66px;
+            border-radius: 50%;
+            background: #e00e2f;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .modal-header-icon svg { width: 30px; height: 30px; fill: #fff; }
+        .modal-header-text h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #fff;
+            letter-spacing: 0.08em;
+            margin: 0 0 4px;
+        }
+        .modal-header-role {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #e00e2f;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin: 0 0 6px;
+        }
+        .modal-header-desc {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.84rem;
+            color: #888;
+            margin: 0;
+        }
+
+        .modal-body { padding: 28px 32px 32px; }
+
+        .modal-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.05em;
+            margin: 0 0 16px;
+        }
+        .modal-section-title span { font-size: 1.3rem; }
+
+        .works-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+        .work-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            transition: border-color 0.2s;
+        }
+        .work-item:hover { border-color: rgba(196, 135, 42, 0.5); }
+        .work-item.highlight { border-color: rgba(196, 135, 42, 0.4); }
+        .work-item.highlight .work-title { color: #e00e2f; }
+        .work-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 4px;
+        }
+        .work-year {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            color: #888;
+            margin: 0 0 4px;
+        }
+        .work-role-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #e00e2f;
+            letter-spacing: 0.03em;
+            margin: 0;
+        }
+        .work-eye-btn {
+            width: 34px; height: 34px;
+            background: rgba(224,14,47,0.15);
+            border: none;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .work-eye-btn:hover { background: #e00e2f; }
+        .work-eye-btn svg { width: 16px; height: 16px; fill: #e00e2f; }
+        .work-eye-btn:hover svg { fill: #fff; }
+
+        .awards-list { display: flex; flex-direction: column; gap: 8px; }
+        .award-item {
+            padding: 12px 18px;
+            background: rgba(196,135,42,0.07);
+            border: 1px solid rgba(196,135,42,0.3);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #C4872A;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1100px) {
+            .cast-full-grid { grid-template-columns: repeat(3, 1fr); }
+            .crew-page-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        }
+        @media (max-width: 700px) {
+            .cast-page-body { padding: 40px 20px 80px; }
+            .cast-full-grid { grid-template-columns: repeat(2, 1fr); }
+            .crew-page-grid { grid-template-columns: 1fr; }
+            .modal-header { flex-direction: column; align-items: flex-start; }
+            .cast-page-header { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="cast-page-header">
+        <a href="index.html" class="back-home-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back to Home
+        </a>
+        <div class="cast-page-logo">PEDDI</div>
+        <div class="cast-page-header-right"></div>
+    </header>
+
+    <!-- BODY -->
+    <div class="cast-page-body">
+        <h1 class="cast-page-title">Cast &amp; Crew</h1>
+        <div class="cast-page-divider"></div>
+        <p class="cast-page-subtitle" id="pageSubtitle">Click on any cast member to know more</p>
+
+        <!-- Tabs -->
+        <div class="cast-toggle">
+            <button class="cast-tab-btn active" onclick="switchTab('cast')">🎭 Cast</button>
+            <button class="cast-tab-btn" id="crewTabBtnPage" onclick="switchTab('crew')">🎬 Crew</button>
+        </div>
+
+        <!-- CAST PANEL -->
+        <div id="castPanel">
+            <div class="cast-full-grid">
+                <div class="cast-card-page" onclick="window.open('https://en.wikipedia.org/wiki/Ram_Charan', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">
+                    <div class="cast-img-wrap">
+                        <img src="images/Peddi-WWM-4.jpg" alt="Ram Charan" />
+                        <div class="img-gradient"></div>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="card-name">Ram Charan</p>
+                        <p class="card-role">PEDDI</p>
+                    </div>
+                </div>
+                <div class="cast-card-page" onclick="window.open('https://en.wikipedia.org/wiki/Janhvi_Kapoor', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">
+                    <div class="cast-img-wrap">
+                        <img src="images/Peddi-Janhvi-WWM-1.jpg" alt="Janhvi Kapoor" />
+                        <div class="img-gradient"></div>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="card-name">Janhvi Kapoor</p>
+                        <p class="card-role">ACHIYYAMMA</p>
+                    </div>
+                </div>
+                <div class="cast-card-page" onclick="window.open('https://en.wikipedia.org/wiki/Shiva_Rajkumar', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">
+                    <div class="cast-img-wrap">
+                        <img src="images/SRK-HBD-Peddi-WWM.jpg" alt="Shiva Rajkumar" />
+                        <div class="img-gradient"></div>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="card-name">Shiva Rajkumar</p>
+                        <p class="card-role">GOURNAIDU</p>
+                    </div>
+                </div>
+                <div class="cast-card-page" onclick="window.open('https://en.wikipedia.org/wiki/Divyenndu', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">
+                    <div class="cast-img-wrap">
+                        <img src="images/Divyenndu-HBD-Peddi-WWM.jpg" alt="Divyenndu" />
+                        <div class="img-gradient"></div>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="card-name">Divyenndu Sharma</p>
+                        <p class="card-role">RAMBUJJI</p>
+                    </div>
+                </div>
+                <div class="cast-card-page" onclick="window.open('https://en.wikipedia.org/wiki/Jagapathi_Babu', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">
+                    <div class="cast-img-wrap">
+                        <img src="images/JB-Post-Peddi-WWM.jpg" alt="Jagapathi Babu" />
+                        <div class="img-gradient"></div>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="card-name">Jagapathi Babu</p>
+                        <p class="card-role">APPALASOORI</p>
+                    </div>
+                </div>
+                <div class="cast-card-page" onclick="window.open('https://en.wikipedia.org/wiki/Boman_Irani', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">
+                    <div class="cast-img-wrap">
+                        <img src="images/boman irani.jpg" alt="Boman Irani" />
+                        <div class="img-gradient"></div>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="card-name">Boman Irani</p>
+                        <p class="card-role">Special Appearance</p>
+                    </div>
+                </div>
+                <div class="cast-card-page" onclick="window.open('https://en.wikipedia.org/wiki/Satya_(Telugu_actor)', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">
+                    <div class="cast-img-wrap">
+                        <img src="images/sathya.jpg" alt="Sathya" />
+                        <div class="img-gradient"></div>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="card-name">Sathya</p>
+                        <p class="card-role">Comedian</p>
+                    </div>
+                </div>
+                <div class="cast-card-page" onclick="window.open('https://en.wikipedia.org/wiki/Upendra_Limaye', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">
+                    <div class="cast-img-wrap">
+                        <img src="images/upendra limaye.jpg" alt="Upendra Limaye" />
+                        <div class="img-gradient"></div>
+                    </div>
+                    <div class="card-bottom">
+                        <p class="card-name">Upendra Limaye</p>
+                        <p class="card-role">Special Appearance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CREW PANEL -->
+        <div id="crewPanel" style="display:none;">
+            <div class="crew-page-grid">
+
+                <!-- Buchi Babu Sana -->
+                <div class="crew-page-card" onclick="openCrewModal('buchibabu')">
+                    <div class="crew-thumb">
+                        <img src="images/buchi babu.jpg" alt="Buchi Babu Sana" />
+                        <div class="crew-overlay">
+                            <div class="crew-overlay-icon">
+                                <i class="fas fa-clapperboard"></i>
+                            </div>
+                            <div class="crew-overlay-text">
+                                <p class="crew-card-name">Buchi Babu Sana</p>
+                                <p class="crew-card-role">Director</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crew-card-bottom">
+                        <p class="crew-card-desc">Visionary director bringing PEDDI to life with raw, powerful storytelling.</p>
+                        <p class="crew-view-detail">View Filmography &rsaquo;</p>
+                    </div>
+                </div>
+
+                <!-- Venkata Satish Kilaru -->
+                <div class="crew-page-card" onclick="openCrewModal('venkatasatish')">
+                    <div class="crew-thumb">
+                        <img src="images/venkata satish kilaru.jpg" alt="Venkata Satish Kilaru" />
+                        <div class="crew-overlay">
+                            <div class="crew-overlay-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="crew-overlay-text">
+                                <p class="crew-card-name">Venkata Satish Kilaru</p>
+                                <p class="crew-card-role">Producer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crew-card-bottom">
+                        <p class="crew-card-desc">Visionary producer steering PEDDI towards cinematic excellence on a grand scale.</p>
+                        <p class="crew-view-detail">View Filmography &rsaquo;</p>
+                    </div>
+                </div>
+
+                <!-- A.R. Rahman -->
+                <div class="crew-page-card" onclick="openCrewModal('arrahman')">
+                    <div class="crew-thumb">
+                        <img src="images/a r rahman.jpg" alt="A. R. Rahman" />
+                        <div class="crew-overlay">
+                            <div class="crew-overlay-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="crew-overlay-text">
+                                <p class="crew-card-name">A. R. Rahman</p>
+                                <p class="crew-card-role">Music Director</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crew-card-bottom">
+                        <p class="crew-card-desc">Oscar-winning maestro composing the powerful soundtrack of PEDDI.</p>
+                        <p class="crew-view-detail">View Filmography &rsaquo;</p>
+                    </div>
+                </div>
+
+                <!-- Rathnavelu -->
+                <div class="crew-page-card" onclick="openCrewModal('rathnavelu')">
+                    <div class="crew-thumb">
+                        <img src="images/HBD-Rathnavelu-insta-02.jpg" alt="Rathnavelu" />
+                        <div class="crew-overlay">
+                            <div class="crew-overlay-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div class="crew-overlay-text">
+                                <p class="crew-card-name">Rathnavelu</p>
+                                <p class="crew-card-role">Cinematographer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crew-card-bottom">
+                        <p class="crew-card-desc">National Award-winning DOP painting every frame with cinematic brilliance.</p>
+                        <p class="crew-view-detail">View Filmography &rsaquo;</p>
+                    </div>
+                </div>
+
+                <!-- Navin Nooli -->
+                <div class="crew-page-card" onclick="openCrewModal('navinnooli')">
+                    <div class="crew-thumb">
+                        <img src="images/Navin nooli.jpg" alt="Navin Nooli" />
+                        <div class="crew-overlay">
+                            <div class="crew-overlay-icon">
+                                <i class="fas fa-scissors"></i>
+                            </div>
+                            <div class="crew-overlay-text">
+                                <p class="crew-card-name">Navin Nooli</p>
+                                <p class="crew-card-role">Editor</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crew-card-bottom">
+                        <p class="crew-card-desc">Award-winning editor crafting the pulse-pounding rhythm of PEDDI.</p>
+                        <p class="crew-view-detail">View Filmography &rsaquo;</p>
+                    </div>
+                </div>
+
+                
+
+                <!-- Avinash Kolla -->
+                <div class="crew-page-card" onclick="openCrewModal('avinashkolla')">
+                    <div class="crew-thumb">
+                        <img src="images/avinash kolla.jpg" alt="Avinash Kolla" />
+                        <div class="crew-overlay">
+                            <div class="crew-overlay-icon">
+                                <i class="fas fa-paintbrush"></i>
+                            </div>
+                            <div class="crew-overlay-text">
+                                <p class="crew-card-name">Avinash Kolla</p>
+                                <p class="crew-card-role">Production Designer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crew-card-bottom">
+                        <p class="crew-card-desc">Masterful production designer crafting the visual world of PEDDI with stunning artistry.</p>
+                        <p class="crew-view-detail">View Filmography &rsaquo;</p>
+                    </div>
+                </div>
+
+                <!-- Jani Master -->
+                <div class="crew-page-card" onclick="openCrewModal('janimaster')">
+                    <div class="crew-thumb">
+                        <img src="images/jani master.jpg" alt="Jani Master" />
+                        <div class="crew-overlay">
+                            <div class="crew-overlay-icon">
+                                <i class="fa-solid fa-masks-theater"></i>
+                            </div>
+                            <div class="crew-overlay-text">
+                                <p class="crew-card-name">Jani Master</p>
+                                <p class="crew-card-role">Choreographer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crew-card-bottom">
+                        <p class="crew-card-desc">Award-winning choreographer bringing electrifying dance sequences to PEDDI.</p>
+                        <p class="crew-view-detail">View Filmography &rsaquo;</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- CREW DETAIL MODAL -->
+    <div class="detail-modal-overlay" id="crewModalOverlay" onclick="closeCrewModal(event)">
+        <div class="detail-modal" id="crewModal">
+            <button class="modal-close-btn" onclick="closeCrewModalDirect()">✕</button>
+            <div class="modal-header">
+                <div class="modal-header-icon" id="modalIcon"></div>
+                <div class="modal-header-text">
+                    <h2 id="modalName"></h2>
+                    <p class="modal-header-role" id="modalRole"></p>
+                    <p class="modal-header-desc" id="modalDesc"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section-title"><span>🎬</span> Past Works</div>
+                <div class="works-list" id="modalWorks"></div>
+                <div class="modal-section-title"><span>🏆</span> Awards &amp; Recognition</div>
+                <div class="awards-list" id="modalAwards"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    /* ===== TAB SWITCH ===== */
+    function switchTab(tab) {
+        const castPanel = document.getElementById('castPanel');
+        const crewPanel = document.getElementById('crewPanel');
+        const subtitle  = document.getElementById('pageSubtitle');
+        const btns = document.querySelectorAll('.cast-tab-btn');
+
+        if (tab === 'cast') {
+            castPanel.style.display = '';
+            crewPanel.style.display = 'none';
+            btns[0].classList.add('active');
+            btns[1].classList.remove('active');
+            subtitle.textContent = 'Click on any cast member to know more';
+        } else {
+            castPanel.style.display = 'none';
+            crewPanel.style.display = '';
+            btns[0].classList.remove('active');
+            btns[1].classList.add('active');
+            subtitle.textContent = 'Click on any crew member to see their past works';
+        }
+    }
+
+    /* ===== CREW DATA ===== */
+    const crewData = {
+        buchibabu: {
+            name: 'Buchi Babu Sana',
+            role: 'Director',
+            desc: 'Visionary director bringing PEDDI to life with raw, powerful storytelling.',
+            iconSvg: '<path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/>',
+            works: [
+                { title: 'Uppena', year: '2021', role: 'Director', highlight: true },
+                { title: 'Rangasthalam', year: '2018', role: 'Assistant Director' },
+                { title: 'Nannaku Prematho', year: '2016', role: 'Assistant Director' }
+            ],
+            awards: [
+                'Filmfare Award for Best Debut Director — Uppena (2021)',
+                'SIIMA Award for Best Debut Director (2021)',
+                'IIFA Utsavam Best Debut Director'
+            ]
+        },
+        arrahman: {
+            name: 'A. R. Rahman',
+            role: 'Music Director',
+            desc: 'Oscar-winning maestro composing the powerful, soul-stirring soundtrack of PEDDI.',
+            iconSvg: '<path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>',
+            works: [
+                { title: 'Chhaava', year: '2025', role: 'Music Director', highlight: true },
+                { title: 'Slumdog Millionaire', year: '2008', role: 'Music Director', highlight: true },
+                { title: 'Lagaan', year: '2001', role: 'Music Director', highlight: true },
+                { title: 'Roja', year: '1992', role: 'Music Director', highlight: true }
+            ],
+            awards: [
+                'Academy Award (Oscar) for Best Original Score — Slumdog Millionaire (2009)',
+                'Grammy Award for Best Compilation Soundtrack',
+                'National Film Award for Best Music Direction (Multiple)',
+                'Padma Bhushan — Government of India (2010)'
+            ]
+        },
+        rathnavelu: {
+            name: 'Rathnavelu',
+            role: 'Cinematographer',
+            desc: 'National Award-winning DOP painting each frame of PEDDI with cinematic brilliance.',
+            iconSvg: '<path d="M18 10.48V6l-3.73-4H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7.52l-2 2zM14 8V3.5L18.5 8H14zm4 12H6V4h6v6h6v10z"/>',
+            works: [
+                { title: 'Dasara', year: '2023', role: 'Director of Photography', highlight: true },
+                { title: 'Thunivu', year: '2023', role: 'Director of Photography', highlight: true },
+                { title: 'Bheeshma Parvam', year: '2022', role: 'Director of Photography', highlight: true },
+                { title: 'Vikram', year: '2022', role: 'Director of Photography', highlight: true }
+            ],
+            awards: [
+                'National Film Award for Best Cinematography — Dasara (2023)',
+                'Filmfare Award South for Best Cinematography',
+                'SIIMA Award for Best Cinematographer'
+            ]
+        },
+        navinnooli: {
+            name: 'Navin Nooli',
+            role: 'Editor',
+            desc: 'Award-winning editor crafting the pulse-pounding rhythm of PEDDI\'s narrative.',
+            iconSvg: '<path d="M10 16h4v-2h-4v2zm-4-4h12v-2H6v2zm-2-4h16V6H4v2zM2 20h20v-2H2v2z"/>',
+            works: [
+                { title: 'Dasara', year: '2023', role: 'Editor', highlight: true },
+                { title: 'Dhamaka', year: '2022', role: 'Editor', highlight: true },
+                { title: 'Bheeshma Parvam', year: '2022', role: 'Editor', highlight: true },
+                { title: 'Agent Sai Srinivasa Athreya', year: '2019', role: 'Editor', highlight: true }
+            ],
+            awards: [
+                'Filmfare Award South for Best Editor — Dasara (2023)',
+                'SIIMA Award for Best Editor (Kannada Film Awards)',
+                'CineMAA Award for Best Editing'
+            ]
+        },
+        venkatasatish: {
+            name: 'Venkata Satish Kilaru',
+            role: 'Producer',
+            desc: 'Visionary producer steering PEDDI towards cinematic excellence on a grand scale.',
+            iconSvg: '<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54h2.86l2.86-3.6z"/>',
+            works: [
+                { title: 'PEDDI', year: '2026', role: 'Producer', highlight: true },
+                { title: 'Premium Films', year: '2020-Present', role: 'Co-Producer', highlight: true },
+                { title: 'Pan-India Productions', year: '2018-Present', role: 'Producer Executive', highlight: true }
+            ],
+            awards: [
+                'Recognition for producing high-budget Pan-India films',
+                'Industry recognition for film production excellence',
+                'Known for bringing quality cinema to global audiences'
+            ]
+        },
+        avinashkolla: {
+            name: 'Avinash Kolla',
+            role: 'Production Designer',
+            desc: 'Visionary production designer renowned for his meticulous attention to detail and immersive world-building. Avinash brings cinematic grandeur to PEDDI, creating stunning visual landscapes that elevate the narrative.',
+            iconSvg: '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>',
+            works: [
+                { title: 'PEDDI', year: '2026', role: 'Production Designer', highlight: true },
+                { title: 'Bheeshma', year: '2020', role: 'Production Designer', highlight: true },
+                { title: 'Contemporary Telugu Cinema', year: '2018-Present', role: 'Art Director & Production Design', highlight: true },
+                { title: 'Pan-India Film Productions', year: '2015-Present', role: 'Production Designer & Set Designer' }
+            ],
+            awards: [
+                'Acclaim for innovative production design in high-budget cinema',
+                'Industry recognition for creating immersive and authentic set designs',
+                'Praised for blending traditional aesthetics with modern cinematography',
+                'Known for collaborative vision with directors on grand-scale productions'
+            ]
+        },
+        janimaster: {
+            name: 'Jani Master',
+            role: 'Choreographer',
+            desc: 'Award-winning choreographer bringing electrifying and memorable dance sequences to PEDDI.',
+            iconSvg: '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>',
+            works: [
+                { title: 'Stree 2', year: '2024', role: 'Choreographer', highlight: true },
+                { title: 'Game Changer', year: '2025', role: 'Choreographer', highlight: true },
+                { title: 'Ala Vaikunthapurramuloo', year: '2020', role: 'Choreographer (Butta Bomma)', highlight: true },
+                { title: 'Maari 2', year: '2018', role: 'Choreographer (Rowdy Baby)', highlight: true },
+                { title: 'Pushpa: The Rise', year: '2021', role: 'Choreographer', highlight: true }
+            ],
+            awards: [
+                'National Film Award for Best Choreography — Thiruchitrambalam (2024)',
+                'Filmfare Award for Best Choreography — Maari 2 (2019)',
+                'SIIMA Awards for Best Dance Choreographer (Multiple wins)',
+                'CineMAA Awards for Best Choreography',
+                'Times of India Film Awards 2025 — Excellence in Choreography'
+            ]
+        }
+    };
+
+    /* ===== OPEN MODAL ===== */
+    function openCrewModal(id) {
+        const data = crewData[id];
+        if (!data) return;
+
+        document.getElementById('modalName').textContent = data.name;
+        document.getElementById('modalRole').textContent = data.role;
+        document.getElementById('modalDesc').textContent = data.desc;
+        document.getElementById('modalIcon').innerHTML = `<svg viewBox="0 0 24 24" fill="white" width="30" height="30">${data.iconSvg}</svg>`;
+
+        const worksList = document.getElementById('modalWorks');
+        worksList.innerHTML = data.works.map(w => `
+            <div class="work-item${w.highlight ? ' highlight' : ''}">
+                <div>
+                    <p class="work-title">${w.title}</p>
+                    <p class="work-year">${w.year}</p>
+                    <p class="work-role-tag">${w.role}</p>
+                </div>
+                <button class="work-eye-btn" title="View on Google" onclick="window.open('https://www.google.com/search?q=${encodeURIComponent(w.title + ' ' + w.year + ' film')}','_blank','noopener')">
+                    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                </button>
+            </div>
+        `).join('');
+
+        const awardsList = document.getElementById('modalAwards');
+        awardsList.innerHTML = data.awards.map(a => `<div class="award-item">${a}</div>`).join('');
+
+        document.getElementById('crewModalOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeCrewModal(e) {
+        if (e.target === document.getElementById('crewModalOverlay')) {
+            closeCrewModalDirect();
+        }
+    }
+    function closeCrewModalDirect() {
+        document.getElementById('crewModalOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeCrewModalDirect();
+    });
+    </script>
+
+    <!-- BACKGROUND AUDIO -->
+    <audio id="bgAudio" src="Peddi-Theme.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
+
+    <!-- SOUND TOGGLE BUTTON -->
+    <button class="sound-btn" id="soundBtn" aria-label="Toggle sound" title="Play Music">
+        <svg class="sound-icon" id="soundIcon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

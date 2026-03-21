@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videos &amp; Media — PEDDI</title>
+    <link rel="icon" type="image/png" href="images/English Title.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0a0a0a; color: #fff; font-family: 'Montserrat', sans-serif; }
+
+        /* ===== HEADER ===== */
+        .videos-header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(10,10,10,0.97);
+            border-bottom: 1px solid rgba(196, 135, 42, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 64px;
+        }
+        .back-home-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+        .back-home-link:hover { color: #C4872A; }
+        .videos-header-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #C4872A;
+            letter-spacing: 0.1em;
+        }
+        .header-spacer { width: 120px; }
+
+        /* ===== BODY ===== */
+        .videos-page-body {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+        }
+        .videos-page-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-align: center;
+            letter-spacing: 0.08em;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .videos-page-divider {
+            width: 60px;
+            height: 3px;
+            background: #C4872A;
+            margin: 0 auto 30px;
+            border-radius: 2px;
+        }
+
+        /* ===== TABS ===== */
+        .videos-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .video-tab-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(196, 135, 42, 0.3);
+            color: #aaa;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.03em;
+        }
+        .video-tab-btn:hover {
+            border-color: #C4872A;
+            color: #C4872A;
+            background: rgba(196, 135, 42, 0.1);
+        }
+        .video-tab-btn.active {
+            background: #C4872A;
+            border-color: #C4872A;
+            color: #000;
+        }
+
+        /* ===== GRID ===== */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .video-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(196, 135, 42, 0.4);
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(196, 135, 42, 0.1), transparent);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        .video-card:hover {
+            border-color: #C4872A;
+            box-shadow: 0 15px 40px rgba(196, 135, 42, 0.4);
+            transform: translateY(-8px) scale(1.02);
+        }
+        .video-title-bar {
+            padding: 14px 16px;
+            background: rgba(196, 135, 42, 0.15);
+            border-bottom: 2px solid rgba(196, 135, 42, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 56px;
+        }
+        .video-title-bar::before {
+            content: '▶';
+            color: #C4872A;
+            font-size: 12px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+        .video-title-bar p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.3;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .video-player-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #1a1a1a;
+            overflow: hidden;
+        }
+        .video-player-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .video-thumbnail-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .video-thumbnail-fallback.visible {
+            display: flex;
+        }
+        .play-button-fallback {
+            width: 70px;
+            height: 70px;
+            background: rgba(196, 135, 42, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 28px;
+            box-shadow: 0 0 30px rgba(196, 135, 42, 0.8);
+            transition: all 0.3s;
+        }
+        .video-thumbnail-fallback:hover .play-button-fallback {
+            transform: scale(1.2);
+            background: #C4872A;
+            box-shadow: 0 0 40px rgba(196, 135, 42, 1);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .videos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .videos-page-body {
+                padding: 40px 20px 80px;
+            }
+            .videos-page-title {
+                font-size: clamp(2rem, 5vw, 3rem);
+            }
+            .videos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 16px;
+            }
+            .videos-tabs {
+                gap: 10px;
+            }
+            .video-tab-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            .video-title-bar {
+                padding: 12px 14px;
+                min-height: 52px;
+            }
+            .video-title-bar p {
+                font-size: 0.8rem;
+            }
+            .play-button {
+                width: 48px;
+                height: 48px;
+                font-size: 18px;
+            }
+        }
+        @media (max-width: 480px) {
+            .videos-header {
+                padding: 0 20px;
+            }
+            .videos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 12px;
+            }
+            .video-title-bar {
+                padding: 10px 12px;
+                min-height: 48px;
+            }
+            .video-title-bar p {
+                font-size: 0.7rem;
+            }
+            .play-button {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="videos-header">
+        <a href="index.html" class="back-home-link">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back to Home
+        </a>
+        <div class="videos-header-logo">PEDDI</div>
+        <div class="header-spacer"></div>
+    </header>
+
+    <!-- BODY -->
+    <div class="videos-page-body">
+        <h1 class="videos-page-title">Videos &amp; Media</h1>
+        <div class="videos-page-divider"></div>
+
+        <!-- TABS -->
+        <div class="videos-tabs">
+            <button class="video-tab-btn active" onclick="filterVideos('all')">
+                <i class="fas fa-clapperboard"></i> All
+            </button>
+            <button class="video-tab-btn" onclick="filterVideos('glimpse')">
+                <i class="fas fa-eye"></i> Glimpses
+            </button>
+            <button class="video-tab-btn" onclick="filterVideos('song')">
+                <i class="fas fa-music"></i> Songs
+            </button>
+            <button class="video-tab-btn" onclick="filterVideos('teaser')">
+                <i class="fas fa-film"></i> Teasers
+            </button>
+            <button class="video-tab-btn" onclick="filterVideos('trailer')">
+                <i class="fas fa-play"></i> Trailers
+            </button>
+            <button class="video-tab-btn" onclick="filterVideos('interview')">
+                <i class="fas fa-microphone"></i> Interviews
+            </button>
+        </div>
+
+        <!-- VIDEOS GRID -->
+        <div class="videos-grid" id="videosGrid"></div>
+    </div>
+
+    <script>
+        /* ===== VIDEOS DATA ===== */
+        const videosData = [
+            // ===== GLIMPSES =====
+            {
+                id: 'glimpse_tel',
+                title: 'First Shot Glimpse - Telugu',
+                category: 'glimpse',
+                videoId: '2y_DH5gIrCU'
+            },
+            {
+                id: 'glimpse_hin',
+                title: 'First Shot Glimpse - Hindi',
+                category: 'glimpse',
+                videoId: '77KAnoqpoFw'
+            },
+            {
+                id: 'glimpse_tam',
+                title: 'First Shot Glimpse - Tamil',
+                category: 'glimpse',
+                videoId: 'mGrFXawfrd4'
+            },
+            {
+                id: 'glimpse_mal',
+                title: 'First Shot Glimpse - Malayalam',
+                category: 'glimpse',
+                videoId: 'Zb5sPzrqY9Q'
+            },
+            {
+                id: 'glimpse_kan',
+                title: 'First Shot Glimpse - Kannada',
+                category: 'glimpse',
+                videoId: 'lvodg_AjQpY'
+            },
+            {
+                id: 'glimpse_tilak',
+                title: 'Tilak Varma on the sets of PEDDI',
+                category: 'glimpse',
+                videoId: 'YBGUdv-UNR4'
+            },
+            {
+                id: 'glimpse_janhvi_bd',
+                title: 'Happy Birthday to Our Chikiri Janhvi Kapoor',
+                category: 'glimpse',
+                videoId: 'nq06es-XsGo'
+            },
+            {
+                id: 'glimpse_rc_dubbing',
+                title: 'Mega Power Star Ram Charan Begins Dubbing For Peddi',
+                category: 'glimpse',
+                videoId: 'uTV54hoNiLE'
+            },
+            {
+                id: 'glimpse_ratnavelu_bd',
+                title: 'Happy Birthday to our DOP Ratnavelu ISC',
+                category: 'glimpse',
+                videoId: 'rctVoLi0DKg'
+            },
+            {
+                id: 'glimpse_buchi_bd',
+                title: 'Happy Birthday to our Director Buchi Babu Sana',
+                category: 'glimpse',
+                videoId: '__wBsW-3j9Y'
+            },
+            {
+                id: 'glimpse_chikiri_magic',
+                title: 'MAGIC of CHIKIRI CHIKIRI - 100M+ Views Special Video',
+                category: 'glimpse',
+                videoId: '6Jf1WKPXp6g'
+            },
+            {
+                id: 'glimpse_rahman_concert',
+                title: 'Team Peddi @ AR Rahman Concert Hyderabad',
+                category: 'glimpse',
+                videoId: 'IekW7r19K3U'
+            },
+            {
+                id: 'glimpse_what_chikiri',
+                title: 'What is chikiri | Peddi First Single Announcement',
+                category: 'glimpse',
+                videoId: 'so1oKhC4kkw'
+            },
+            {
+                id: 'glimpse_ganesh',
+                title: 'Peddi Song Shoot Update from Sets | Happy Ganesh Chaturthi',
+                category: 'glimpse',
+                videoId: 'fYSGt_ld00A'
+            },
+            {
+                id: 'glimpse_srk_looktest',
+                title: 'Shiva Rajkumar Look Test for #RC16',
+                category: 'glimpse',
+                videoId: 'TU9fL1ogmuY'
+            },
+            {
+                id: 'glimpse_rc16_pooja',
+                title: '#RC16 Pooja Ceremony | Ram Charan | Janhvi Kapoor | Buchi Babu Sana | AR Rahman',
+                category: 'glimpse',
+                videoId: 'HN1I8ivLrT0'
+            },
+            // ===== CHIKIRI CHIKIRI SONG =====
+            {
+                id: 'song_chikiri_tel',
+                title: 'Chikiri Chikiri - Telugu',
+                category: 'song',
+                videoId: 'vVDp1ulBKIk'
+            },
+            {
+                id: 'song_chikiri_hin',
+                title: 'Chikiri Chikiri - Hindi',
+                category: 'song',
+                videoId: 'l2vB4qovRoE'
+            },
+            {
+                id: 'song_chikiri_tam',
+                title: 'Chikiri Chikiri - Tamil',
+                category: 'song',
+                videoId: 'Zb6yhc2SgEo'
+            },
+            {
+                id: 'song_chikiri_mal',
+                title: 'Chikiri Chikiri - Malayalam',
+                category: 'song',
+                videoId: 'Cp2Gm_BNQSU'
+            },
+            {
+                id: 'song_chikiri_kan',
+                title: 'Chikiri Chikiri - Kannada',
+                category: 'song',
+                videoId: 'p4uqRbeujCw'
+            },
+
+            // ===== RAI RAI RAA RAA SONG =====
+            {
+                id: 'song_rairai_tel',
+                title: 'Rai Rai Raa Raa - Telugu',
+                category: 'song',
+                videoId: 'g5oUluD9ScA'
+            },
+            {
+                id: 'song_rairai_hin',
+                title: 'Rai Rai Raa Raa - Hindi',
+                category: 'song',
+                videoId: '3IDAr45xjUQ'
+            },
+            {
+                id: 'song_rairai_tam',
+                title: 'Rai Rai Raa Raa - Tamil',
+                category: 'song',
+                videoId: 'J70g85LILlM'
+            },
+
+            // ===== OTHER SONGS =====
+            {
+                id: 'song_vaa_mal',
+                title: 'Vaa Vaa Veeraa - Malayalam',
+                category: 'song',
+                videoId: '3bUFagXfbYQ'
+            },
+            {
+                id: 'song_hoy_kan',
+                title: 'Hoy Hoy Veeraa - Kannada',
+                category: 'song',
+                videoId: '-Pu7QM3x6BM'
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        /* ===== RENDER VIDEOS ===== */
+        function renderVideos(filter = 'all') {
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? videosData 
+                : videosData.filter(v => v.category === filter);
+
+            filtered.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                const thumbnailUrl = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
+                
+                card.innerHTML = `
+                    <div class="video-title-bar">
+                        <p>${video.title}</p>
+                    </div>
+                    <div class="video-player-wrap">
+                        <div class="video-thumbnail-fallback" style="background-image: url('${thumbnailUrl}');" data-video-id="${video.videoId}" data-title="${video.title}">
+                            <div class="play-button-fallback">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <iframe 
+                            width="100%"
+                            height="100%"
+                            src="https://www.youtube.com/embed/${video.videoId}"
+                            title="${video.title}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                            data-video-id="${video.videoId}">
+                        </iframe>
+                    </div>
+                `;
+
+                const wrapper = card.querySelector('.video-player-wrap');
+                const fallback = card.querySelector('.video-thumbnail-fallback');
+                const iframe = card.querySelector('iframe');
+
+                // Click fallback to open on YouTube
+                fallback.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.open(`https://www.youtube.com/watch?v=${video.videoId}`, '_blank');
+                });
+
+                // Detect if iframe fails to load
+                setTimeout(() => {
+                    try {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        if (!iframeDoc || iframeDoc.body.innerHTML.includes('unavailable') || iframeDoc.body.innerHTML.includes('This video') === false) {
+                            // Try to detect unavailable state
+                            fallback.classList.add('visible');
+                            iframe.style.display = 'none';
+                        }
+                    } catch(e) {
+                        // Cross-origin restriction or other error - show fallback
+                        fallback.classList.add('visible');
+                        iframe.style.display = 'none';
+                    }
+                }, 2000);
+
+                grid.appendChild(card);
+            });
+        }
+
+        /* ===== FILTER VIDEOS ===== */
+        function filterVideos(category) {
+            currentFilter = category;
+            
+            // Update active tab
+            document.querySelectorAll('.video-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.video-tab-btn').classList.add('active');
+
+            renderVideos(category);
+        }
+
+        // Initialize
+        renderVideos('all');
+    </script>
+
+    <!-- BACKGROUND AUDIO -->
+    <audio id="bgAudio" src="Peddi-Theme.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
+
+    <!-- SOUND TOGGLE BUTTON -->
+    <button class="sound-btn" id="soundBtn" aria-label="Toggle sound" title="Play Music">
+        <svg class="sound-icon" id="soundIcon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
