@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #0a0a0a; color: #fff; font-family: 'Montserrat', sans-serif; }
@@ -250,6 +251,15 @@
     </style>
 </head>
 <body>
+    <!-- BACKGROUND AUDIO -->
+    <audio id="bgAudio" src="Peddi-Theme.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
+
+    <!-- SOUND TOGGLE BUTTON -->
+    <button class="sound-btn" id="soundBtn" aria-label="Toggle sound" title="Play Music">
+        <svg class="sound-icon" id="soundIcon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+    </button>
 
     <!-- HEADER -->
     <header class="gallery-header">
@@ -302,11 +312,11 @@
         { src: 'images/Chikri-Still-3.jpg',                alt: 'Chikiri Movie Still 3' },
         { src: 'images/Peddi-chikiri-Song-Out-Now-Still.jpg', alt: 'Chikiri Song Still' },
         { src: 'images/Chikri-Song-Promo-Out-Story_Still.jpg', alt: 'Chikiri Song Promo Still' },
+        { src: 'images/PEDDI-PEHELWAN-Glimpse_wwm.jpg',              alt: 'PEDDI Pehelwan Glimpse' },
         { src: 'images/Peddi-Janhvi-WWM-1.jpg',            alt: 'Janhvi Kapoor Look 1' },
         { src: 'images/Peddi-Janhvi-WWM.jpg',            alt: 'Janhvi Kapoor Look 2' },
-        { src: 'images/SRK-HBD-Peddi-WWM.jpg',             alt: 'Shiva Rajkumar PEDDI' },
-        { src: 'images/Divyenndu-HBD-Peddi-WWM.jpg',       alt: 'Divyenndu PEDDI' },
-        { src: 'images/JB-Post-Peddi-WWM.jpg',             alt: 'Jagapathi Babu PEDDI' },
+        { src: 'images/Peddi-Dolby-WWM.jpg',                 alt: 'PEDDI Dolby Atmos' },
+        { src: 'images/Peddi Insta.jpg.jpeg',                 alt: 'PEDDI Final Release Date' },
         { src: 'images/RAI-RAI-RAA-RAA-SONG-OUT-TEL-THUMBNAIL.jpg', alt: 'Rai Rai Raa Raa Song' },
         { src: 'images/RAI-RAI-RAA-RAA-OUT-NOW-WWM.jpg',   alt: 'Rai Rai Raa Raa Out Now' },
         { src: 'images/Rai Rai RAA Trending_Plain.jpg',   alt: 'Rai Rai Raa Raa Song Look' },
@@ -314,9 +324,10 @@
         { src: 'images/PEDDI PLAIN FL.jpg',                alt: 'PEDDI Plain First Look' },
         { src: 'images/North-America-Release-WWM.jpg',     alt: 'North America Release' },
         { src: 'images/Peddi-Ugadi-Insta.jpg',             alt: 'PEDDI Ugadi Special' },
-        { src: 'images/Peddi-Dolby-WWM.jpg',                 alt: 'PEDDI Dolby Atmos' },
         { src: 'images/1(1).jpg',                          alt: 'PEDDI Behind the Scenes' },
-        { src: 'images/Peddi Insta.jpg.jpeg',                 alt: 'PEDDI Final Release Date' },
+        { src: 'images/SRK-HBD-Peddi-WWM.jpg',             alt: 'Shiva Rajkumar PEDDI' },
+        { src: 'images/Divyenndu-HBD-Peddi-WWM.jpg',       alt: 'Divyenndu PEDDI' },
+        { src: 'images/JB-Post-Peddi-WWM.jpg',             alt: 'Jagapathi Babu PEDDI' },
     ];
 
     /* ===== BUILD GRID ===== */
@@ -406,16 +417,6 @@
         if (e.key === 'Escape')     closeLightbox();
     });
     </script>
-
-    <!-- BACKGROUND AUDIO -->
-    <audio id="bgAudio" src="Peddi-Theme.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
-
-    <!-- SOUND TOGGLE BUTTON -->
-    <button class="sound-btn" id="soundBtn" aria-label="Toggle sound" title="Play Music">
-        <svg class="sound-icon" id="soundIcon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-        </svg>
-    </button>
 
     <script src="script.js"></script>
 </body>

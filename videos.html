@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #0a0a0a; color: #fff; font-family: 'Montserrat', sans-serif; }
@@ -259,6 +260,15 @@
     </style>
 </head>
 <body>
+    <!-- BACKGROUND AUDIO -->
+    <audio id="bgAudio" src="Peddi-Theme.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
+
+    <!-- SOUND TOGGLE BUTTON -->
+    <button class="sound-btn" id="soundBtn" aria-label="Toggle sound" title="Play Music">
+        <svg class="sound-icon" id="soundIcon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+    </button>
 
     <!-- HEADER -->
     <header class="videos-header">
@@ -283,6 +293,9 @@
             <button class="video-tab-btn" onclick="filterVideos('glimpse')">
                 <i class="fas fa-eye"></i> Glimpses
             </button>
+            <button class="video-tab-btn" onclick="filterVideos('bts')">
+                <i class="fas fa-film"></i> Behind The Scenes
+            </button>
             <button class="video-tab-btn" onclick="filterVideos('song')">
                 <i class="fas fa-music"></i> Songs
             </button>
@@ -304,7 +317,37 @@
     <script>
         /* ===== VIDEOS DATA ===== */
         const videosData = [
-            // ===== GLIMPSES =====
+            // ===== GLIMPSES (REORDERED: PEHELWAN FIRST) =====
+            {
+                id: 'pehelwan_tel',
+                title: 'Peddi Pehelwan Glimpse - Telugu',
+                category: 'glimpse',
+                videoId: 'f4poVE-r8Ho'
+            },
+            {
+                id: 'pehelwan_hin',
+                title: 'Peddi Pehelwan Glimpse - Hindi',
+                category: 'glimpse',
+                videoId: 'ctbsR2557AA'
+            },
+            {
+                id: 'pehelwan_tam',
+                title: 'Peddi Pehelwan Glimpse - Tamil',
+                category: 'glimpse',
+                videoId: '-HjPL9Nmf5M'
+            },
+            {
+                id: 'pehelwan_mal',
+                title: 'Peddi Pehelwan Glimpse - Malayalam',
+                category: 'glimpse',
+                videoId: 'vfHKPy7MuFM'
+            },
+            {
+                id: 'pehelwan_kan',
+                title: 'Peddi Pehelwan Glimpse - Kannada',
+                category: 'glimpse',
+                videoId: 'n4RYUGfYGU0'
+            },
             {
                 id: 'glimpse_tel',
                 title: 'First Shot Glimpse - Telugu',
@@ -335,72 +378,7 @@
                 category: 'glimpse',
                 videoId: 'lvodg_AjQpY'
             },
-            {
-                id: 'glimpse_tilak',
-                title: 'Tilak Varma on the sets of PEDDI',
-                category: 'glimpse',
-                videoId: 'YBGUdv-UNR4'
-            },
-            {
-                id: 'glimpse_janhvi_bd',
-                title: 'Happy Birthday to Our Chikiri Janhvi Kapoor',
-                category: 'glimpse',
-                videoId: 'nq06es-XsGo'
-            },
-            {
-                id: 'glimpse_rc_dubbing',
-                title: 'Mega Power Star Ram Charan Begins Dubbing For Peddi',
-                category: 'glimpse',
-                videoId: 'uTV54hoNiLE'
-            },
-            {
-                id: 'glimpse_ratnavelu_bd',
-                title: 'Happy Birthday to our DOP Ratnavelu ISC',
-                category: 'glimpse',
-                videoId: 'rctVoLi0DKg'
-            },
-            {
-                id: 'glimpse_buchi_bd',
-                title: 'Happy Birthday to our Director Buchi Babu Sana',
-                category: 'glimpse',
-                videoId: '__wBsW-3j9Y'
-            },
-            {
-                id: 'glimpse_chikiri_magic',
-                title: 'MAGIC of CHIKIRI CHIKIRI - 100M+ Views Special Video',
-                category: 'glimpse',
-                videoId: '6Jf1WKPXp6g'
-            },
-            {
-                id: 'glimpse_rahman_concert',
-                title: 'Team Peddi @ AR Rahman Concert Hyderabad',
-                category: 'glimpse',
-                videoId: 'IekW7r19K3U'
-            },
-            {
-                id: 'glimpse_what_chikiri',
-                title: 'What is chikiri | Peddi First Single Announcement',
-                category: 'glimpse',
-                videoId: 'so1oKhC4kkw'
-            },
-            {
-                id: 'glimpse_ganesh',
-                title: 'Peddi Song Shoot Update from Sets | Happy Ganesh Chaturthi',
-                category: 'glimpse',
-                videoId: 'fYSGt_ld00A'
-            },
-            {
-                id: 'glimpse_srk_looktest',
-                title: 'Shiva Rajkumar Look Test for #RC16',
-                category: 'glimpse',
-                videoId: 'TU9fL1ogmuY'
-            },
-            {
-                id: 'glimpse_rc16_pooja',
-                title: '#RC16 Pooja Ceremony | Ram Charan | Janhvi Kapoor | Buchi Babu Sana | AR Rahman',
-                category: 'glimpse',
-                videoId: 'HN1I8ivLrT0'
-            },
+
             // ===== CHIKIRI CHIKIRI SONG =====
             {
                 id: 'song_chikiri_tel',
@@ -465,6 +443,88 @@
                 title: 'Hoy Hoy Veeraa - Kannada',
                 category: 'song',
                 videoId: '-Pu7QM3x6BM'
+            },
+            
+            // ===== BEHIND THE SCENES =====
+            {
+                id: 'bts_tilak',
+                title: 'Tilak Varma on the sets of PEDDI',
+                category: 'bts',
+                videoId: 'YBGUdv-UNR4'
+            },
+            {
+                id: 'bts_janhvi_bd',
+                title: 'Happy Birthday to Our Chikiri Janhvi Kapoor',
+                category: 'bts',
+                videoId: 'nq06es-XsGo'
+            },
+            {
+                id: 'bts_rc_dubbing',
+                title: 'Mega Power Star Ram Charan Begins Dubbing For Peddi',
+                category: 'bts',
+                videoId: 'uTV54hoNiLE'
+            },
+            {
+                id: 'bts_ratnavelu_bd',
+                title: 'Happy Birthday to our DOP Ratnavelu ISC',
+                category: 'bts',
+                videoId: 'rctVoLi0DKg'
+            },
+            {
+                id: 'bts_buchi_bd',
+                title: 'Happy Birthday to our Director Buchi Babu Sana',
+                category: 'bts',
+                videoId: '__wBsW-3j9Y'
+            },
+            {
+                id: 'bts_rahman_concert',
+                title: 'Team Peddi @ AR Rahman Concert Hyderabad',
+                category: 'bts',
+                videoId: 'IekW7r19K3U'
+            },
+            {
+                id: 'bts_srk_looktest',
+                title: 'Shiva Rajkumar Look Test for #RC16',
+                category: 'bts',
+                videoId: 'TU9fL1ogmuY'
+            },
+            {
+                id: 'bts_rc16_pooja',
+                title: '#RC16 Pooja Ceremony | Ram Charan | Janhvi Kapoor | Buchi Babu Sana | AR Rahman',
+                category: 'bts',
+                videoId: 'HN1I8ivLrT0'
+            },
+
+            // ===== TEASERS (PEDDI PEHELWAN GLIMPSES) =====
+            {
+                id: 'teaser_pehelwan_tel',
+                title: 'Peddi Pehelwan Glimpse - Telugu',
+                category: 'teaser',
+                videoId: 'f4poVE-r8Ho'
+            },
+            {
+                id: 'teaser_pehelwan_hin',
+                title: 'Peddi Pehelwan Glimpse - Hindi',
+                category: 'teaser',
+                videoId: 'ctbsR2557AA'
+            },
+            {
+                id: 'teaser_pehelwan_tam',
+                title: 'Peddi Pehelwan Glimpse - Tamil',
+                category: 'teaser',
+                videoId: '-HjPL9Nmf5M'
+            },
+            {
+                id: 'teaser_pehelwan_mal',
+                title: 'Peddi Pehelwan Glimpse - Malayalam',
+                category: 'teaser',
+                videoId: 'vfHKPy7MuFM'
+            },
+            {
+                id: 'teaser_pehelwan_kan',
+                title: 'Peddi Pehelwan Glimpse - Kannada',
+                category: 'teaser',
+                videoId: 'n4RYUGfYGU0'
             }
         ];
 
@@ -475,9 +535,21 @@
             const grid = document.getElementById('videosGrid');
             grid.innerHTML = '';
 
-            const filtered = filter === 'all' 
+            let filtered = filter === 'all' 
                 ? videosData 
                 : videosData.filter(v => v.category === filter);
+            
+            // Deduplicate by videoId in "All" view
+            if (filter === 'all') {
+                const seenVideoIds = new Set();
+                filtered = filtered.filter(v => {
+                    if (seenVideoIds.has(v.videoId)) {
+                        return false;
+                    }
+                    seenVideoIds.add(v.videoId);
+                    return true;
+                });
+            }
 
             filtered.forEach(video => {
                 const card = document.createElement('div');
@@ -554,16 +626,6 @@
         // Initialize
         renderVideos('all');
     </script>
-
-    <!-- BACKGROUND AUDIO -->
-    <audio id="bgAudio" src="Peddi-Theme.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
-
-    <!-- SOUND TOGGLE BUTTON -->
-    <button class="sound-btn" id="soundBtn" aria-label="Toggle sound" title="Play Music">
-        <svg class="sound-icon" id="soundIcon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-        </svg>
-    </button>
 
     <script src="script.js"></script>
 

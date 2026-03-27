@@ -262,7 +262,7 @@
     }
 
     /* ======================================
-       7. SOUND TOGGLE — Simple & Reliable
+       7. SOUND TOGGLE — Persistent Across Pages
     ====================================== */
     
     const bgAudio = document.getElementById('bgAudio');
@@ -304,6 +304,28 @@
         // Set initial volume based on muted state
         bgAudio.volume = isMuted ? 0 : 0.5;
         
+        // PERSIST PLAYBACK TIME: Restore music position on page load
+        bgAudio.addEventListener('canplay', () => {
+            const savedTime = localStorage.getItem('peddi_audio_time');
+            if (savedTime) {
+                bgAudio.currentTime = parseFloat(savedTime);
+            }
+        }, { once: true });
+        
+        // SAVE PLAYBACK TIME: Save current position every 5 seconds and on page unload
+        setInterval(() => {
+            if (!bgAudio.paused && !isMuted) {
+                localStorage.setItem('peddi_audio_time', bgAudio.currentTime);
+            }
+        }, 5000);
+        
+        // Save on page unload
+        window.addEventListener('beforeunload', () => {
+            if (!bgAudio.paused && !isMuted) {
+                localStorage.setItem('peddi_audio_time', bgAudio.currentTime);
+            }
+        });
+        
         // AUTO-PLAY: Start music immediately when page loads
         // This respects the autoplay attribute on the audio element
         bgAudio.play().catch(() => {
@@ -328,6 +350,8 @@
             if (isMuted) {
                 // Mute
                 bgAudio.volume = 0;
+                // Save current time when muting
+                localStorage.setItem('peddi_audio_time', bgAudio.currentTime);
             } else {
                 // Unmute
                 bgAudio.volume = 0.5;
@@ -490,7 +514,153 @@
             heroBgImg.style.transform = `scale(1.05) translateY(${scrolled * 0.25}px)`;
         }
     }, { passive: true });
+    /* ======================================
+       12. HYPE METER MODAL — Open/Close Control
+    ====================================== */
+    
+    const hypeCardBtn = document.getElementById('hypeCardBtn');
+    const hypeModal = document.getElementById('hypeModal');
+    const hypeModalOverlay = document.getElementById('hypeModalOverlay');
+    const hypeModalClose = document.getElementById('hypeModalClose');
 
+    if (hypeCardBtn && hypeModal) {
+        // Open modal when card is clicked
+        hypeCardBtn.addEventListener('click', () => {
+            hypeModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close modal when close button is clicked
+        hypeModalClose.addEventListener('click', () => {
+            hypeModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close modal when overlay is clicked
+        hypeModalOverlay.addEventListener('click', () => {
+            hypeModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && hypeModal.classList.contains('active')) {
+                hypeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    /* ======================================
+       13. HYPE METER — Community Feedback
+    ====================================== */
+
+    const hypeForm = document.getElementById('hypeForm');
+    const hypeMessage = document.getElementById('hypeMessage');
+    const hypeFeed = document.getElementById('hypeFeed');
+    const charCount = document.getElementById('charCount');
+    const totalHypesDisplay = document.getElementById('totalHypes');
+    const avgRatingDisplay = document.getElementById('avgRating');
+    const starInputs = document.querySelectorAll('.star-rating input');
+
+    // Load hypes from localStorage
+    function loadHypes() {
+        const stored = localStorage.getItem('peddi_hypes');
+        return stored ? JSON.parse(stored) : [];
+    }
+
+    // Save hypes to localStorage
+    function saveHypes(hypes) {
+        localStorage.setItem('peddi_hypes', JSON.stringify(hypes));
+    }
+
+    // Update character count
+    if (hypeMessage) {
+        hypeMessage.addEventListener('input', (e) => {
+            charCount.textContent = e.target.value.length;
+        });
+    }
+
+    // Handle form submission
+    if (hypeForm) {
+        hypeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get selected rating
+            const rating = document.querySelector('input[name="rating"]:checked');
+            if (!rating) {
+                showToast('⭐ Please select a star rating!');
+                return;
+            }
+
+            const message = hypeMessage.value.trim();
+            if (!message) {
+                showToast('💬 Please write a message!');
+                return;
+            }
+
+            // Create hype object
+            const hype = {
+                id: Date.now(),
+                rating: parseInt(rating.value),
+                message: message,
+                timestamp: new Date().toLocaleString()
+            };
+
+            // Add to localStorage
+            let hypes = loadHypes();
+            hypes.unshift(hype); // Add to beginning
+            saveHypes(hypes);
+
+            // Reset form
+            hypeForm.reset();
+            charCount.textContent = '0';
+
+            // Uncheck stars
+            starInputs.forEach(input => input.checked = false);
+
+            // Update display
+            displayHypes();
+            showToast('🔥 Hype sent! Thanks for the love!');
+        });
+    }
+
+    // Display all hypes
+    function displayHypes() {
+        const hypes = loadHypes();
+        const total = hypes.length;
+        const avgRating = total > 0 ? (hypes.reduce((sum, h) => sum + h.rating, 0) / total).toFixed(1) : 0;
+
+        // Update stats
+        totalHypesDisplay.textContent = total;
+        avgRatingDisplay.textContent = avgRating;
+
+        // Clear feed
+        hypeFeed.innerHTML = '';
+
+        if (total === 0) {
+            hypeFeed.innerHTML = '<p class="hype-empty">No hypes yet. Be the first to share! 🎬</p>';
+            return;
+        }
+
+        // Display each hype
+        hypes.forEach(hype => {
+            const hypeItem = document.createElement('div');
+            hypeItem.className = 'hype-item';
+            hypeItem.innerHTML = `
+                <div class="hype-item-rating">
+                    ${'⭐'.repeat(hype.rating)} • ${hype.rating}/5
+                </div>
+                <div class="hype-item-message">"${hype.message}"</div>
+            `;
+            hypeFeed.appendChild(hypeItem);
+        });
+    }
+
+    // Load hypes on page load
+    if (hypeForm) {
+        displayHypes();
+    }
     console.log('%c🎬 PEDDI — Official Website', 'color: #e00e2f; font-size: 1.4em; font-weight: bold;');
     console.log('%cStarring Ram Charan · Janhvi Kapoor · Shiva Rajkumar', 'color: #aaa; font-size: 0.9em;');
 
