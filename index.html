@@ -106,6 +106,7 @@
             </div>
         </div>
         <div class="hero-scroll-indicator">
+            <p class="scroll-text">Scroll Down</p>
             <div class="scroll-mouse">
                 <div class="scroll-dot"></div>
             </div>
@@ -399,11 +400,17 @@
             <div class="hype-meter-container">
                 <!-- Hype Form -->
                 <div class="hype-form-wrap fade-in">
-                    <h3 class="hype-subtitle">How excited are you for PEDDI?</h3>
+                    <h3 class="hype-subtitle">🔥 Share Your Hype!</h3>
                     <form class="hype-form" id="hypeForm">
+                        <!-- Name Input -->
+                        <div class="name-group">
+                            <label>Your Name</label>
+                            <input type="text" id="hypeName" class="hype-input" placeholder="Enter your name..." maxlength="30" required />
+                        </div>
+
                         <!-- Star Rating -->
                         <div class="star-rating-group">
-                            <label>Your Rating:</label>
+                            <label>Your Rating</label>
                             <div class="star-rating" id="starRating">
                                 <input type="radio" id="star5" name="rating" value="5" />
                                 <label for="star5" class="star">⭐</label>
@@ -420,30 +427,33 @@
 
                         <!-- Message Input -->
                         <div class="message-group">
-                            <input type="text" id="hypeMessage" class="hype-input" placeholder="Share your thoughts about PEDDI..." maxlength="150" required />
-                            <span class="char-count"><span id="charCount">0</span>/150</span>
+                            <label>Your Review</label>
+                            <textarea id="hypeMessage" class="hype-input hype-textarea" placeholder="What are you most excited about? Share your thoughts..." maxlength="200" required></textarea>
+                            <span class="char-count"><span id="charCount">0</span>/200</span>
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="btn-hype-submit">Send Hype 🚀</button>
+                        <button type="submit" class="btn-hype-submit">📍 Submit Your Hype!</button>
                     </form>
                 </div>
 
                 <!-- Hype Display -->
                 <div class="hype-feed-wrap fade-in">
-                    <h3 class="hype-subtitle">Community Hype</h3>
-                    <div class="hype-stats">
-                        <div class="stat-box">
-                            <span class="stat-title">Total Hypes</span>
-                            <span class="stat-value" id="totalHypes">0</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-title">Avg Rating</span>
-                            <span class="stat-value" id="avgRating">0</span>⭐
+                    <div class="hype-header">
+                        <h3 class="hype-subtitle">💬 Fan Reviews</h3>
+                        <div class="hype-stats-compact">
+                            <div class="stat-compact">
+                                <span class="stat-value" id="totalHypes">0</span>
+                                <span class="stat-label">Reviews</span>
+                            </div>
+                            <div class="stat-compact">
+                                <span class="stat-value" id="avgRating">0</span><span style="font-size: 0.9rem; color: #C4872A;">⭐</span>
+                                <span class="stat-label">Avg Rating</span>
+                            </div>
                         </div>
                     </div>
                     <div class="hype-feed" id="hypeFeed">
-                        <p class="hype-empty">No hypes yet. Be the first to share! 🎬</p>
+                        <p class="hype-empty">No reviews yet. Be the first! 🎬</p>
                     </div>
                 </div>
             </div>
@@ -478,7 +488,7 @@
             </div>
             <div class="footer-line"></div>
             <p class="footer-credits">© 2026 PEDDI — Vriddhi Cinemas. All Rights Reserved.</p>
-            <p class="footer-credits footer-dev">🌐 Website Design & Development by <span class="dev-name">Dheeraj Margani</span></p>
+            <p class="footer-credits footer-dev">🌐 Website Design & Development by <a href="https://www.instagram.com/dheeraj_margani?igsh=MWY1Mm4wNHVsMjRqbw==" target="_blank" rel="noopener noreferrer" class="dev-name">Dheeraj Margani</a></p>
         </div>
     </footer>
 
@@ -492,6 +502,8 @@
         </svg>
     </button>
 
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="script.js"></script>
 </body>
 </html>

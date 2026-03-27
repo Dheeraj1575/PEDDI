@@ -102,6 +102,18 @@
     if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
     if (sidebarOvly)  sidebarOvly.addEventListener('click', closeSidebar);
 
+    // Scroll down indicator - Click to smooth scroll
+    const scrollIndicator = document.querySelector('.hero-scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            const infoSection = document.getElementById('info');
+            if (infoSection) {
+                infoSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+        scrollIndicator.style.cursor = 'pointer';
+    }
+
     // Close sidebar / lightbox / YouTube modal on ESC key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -552,26 +564,65 @@
     }
 
     /* ======================================
-       13. HYPE METER — Community Feedback
+       13. HYPE METER — Community Feedback (Supabase Integration)
     ====================================== */
 
+    // Initialize Supabase
+    const SUPABASE_URL = 'https://gsjetvpxpgwlkrteuctu.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_GPWvzrxxvTUYjx5PME0Ufg_hRlStohY';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     const hypeForm = document.getElementById('hypeForm');
+    const hypeName = document.getElementById('hypeName');
     const hypeMessage = document.getElementById('hypeMessage');
     const hypeFeed = document.getElementById('hypeFeed');
     const charCount = document.getElementById('charCount');
     const totalHypesDisplay = document.getElementById('totalHypes');
     const avgRatingDisplay = document.getElementById('avgRating');
     const starInputs = document.querySelectorAll('.star-rating input');
+    let allHypes = [];
 
-    // Load hypes from localStorage
-    function loadHypes() {
-        const stored = localStorage.getItem('peddi_hypes');
-        return stored ? JSON.parse(stored) : [];
+    // Helper: Get initials from name
+    function getInitials(name) {
+        return name
+            .trim()
+            .split(/\s+/)
+            .slice(0, 2)
+            .map(word => word[0].toUpperCase())
+            .join('');
     }
 
-    // Save hypes to localStorage
-    function saveHypes(hypes) {
-        localStorage.setItem('peddi_hypes', JSON.stringify(hypes));
+    // Helper: Format date
+    function formatDate(dateString) {
+        try {
+            const date = new Date(dateString);
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const year = date.getFullYear();
+            return `${month}/${day}/${year}`;
+        } catch {
+            return dateString;
+        }
+    }
+
+    // Load hypes from Supabase
+    async function loadHypes() {
+        try {
+            const { data, error } = await supabase
+                .from('hypes')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            if (error) {
+                console.error('Error loading hypes:', error);
+                return [];
+            }
+            allHypes = data || [];
+            return allHypes;
+        } catch (err) {
+            console.error('Failed to load hypes:', err);
+            return [];
+        }
     }
 
     // Update character count
@@ -583,8 +634,15 @@
 
     // Handle form submission
     if (hypeForm) {
-        hypeForm.addEventListener('submit', (e) => {
+        hypeForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Get name
+            const name = hypeName.value.trim();
+            if (!name) {
+                showToast('👤 Please enter your name!');
+                return;
+            }
 
             // Get selected rating
             const rating = document.querySelector('input[name="rating"]:checked');
@@ -595,41 +653,56 @@
 
             const message = hypeMessage.value.trim();
             if (!message) {
-                showToast('💬 Please write a message!');
+                showToast('💬 Please write a review!');
                 return;
             }
 
-            // Create hype object
-            const hype = {
-                id: Date.now(),
-                rating: parseInt(rating.value),
-                message: message,
-                timestamp: new Date().toLocaleString()
-            };
+            // Disable button during submission
+            const submitBtn = hypeForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Submitting...';
 
-            // Add to localStorage
-            let hypes = loadHypes();
-            hypes.unshift(hype); // Add to beginning
-            saveHypes(hypes);
+            try {
+                // Insert into Supabase
+                const { data, error } = await supabase
+                    .from('hypes')
+                    .insert([
+                        {
+                            name: name,
+                            rating: parseInt(rating.value),
+                            message: message
+                        }
+                    ])
+                    .select();
 
-            // Reset form
-            hypeForm.reset();
-            charCount.textContent = '0';
-
-            // Uncheck stars
-            starInputs.forEach(input => input.checked = false);
-
-            // Update display
-            displayHypes();
-            showToast('🔥 Hype sent! Thanks for the love!');
+                if (error) {
+                    showToast('❌ Error submitting review. Try again!');
+                    console.error('Supabase error:', error);
+                } else {
+                    // Reset form
+                    hypeForm.reset();
+                    charCount.textContent = '0';
+                    starInputs.forEach(input => input.checked = false);
+                    
+                    // Reload and display
+                    await loadHypes();
+                    displayHypes();
+                    showToast('🔥 Hype sent! Thanks for the love!');
+                }
+            } catch (err) {
+                showToast('❌ Failed to submit. Check your connection!');
+                console.error('Exception:', err);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '📍 Submit Your Hype!';
+            }
         });
     }
 
     // Display all hypes
     function displayHypes() {
-        const hypes = loadHypes();
-        const total = hypes.length;
-        const avgRating = total > 0 ? (hypes.reduce((sum, h) => sum + h.rating, 0) / total).toFixed(1) : 0;
+        const total = allHypes.length;
+        const avgRating = total > 0 ? (allHypes.reduce((sum, h) => sum + h.rating, 0) / total).toFixed(1) : 0;
 
         // Update stats
         totalHypesDisplay.textContent = total;
@@ -639,27 +712,59 @@
         hypeFeed.innerHTML = '';
 
         if (total === 0) {
-            hypeFeed.innerHTML = '<p class="hype-empty">No hypes yet. Be the first to share! 🎬</p>';
+            hypeFeed.innerHTML = '<p class="hype-empty">No reviews yet. Be the first! 🎬</p>';
             return;
         }
 
         // Display each hype
-        hypes.forEach(hype => {
+        allHypes.forEach(hype => {
             const hypeItem = document.createElement('div');
             hypeItem.className = 'hype-item';
+            
+            const initials = getInitials(hype.name);
+            const ratingStars = '⭐'.repeat(hype.rating);
+            const formattedDate = formatDate(hype.created_at);
+            
             hypeItem.innerHTML = `
-                <div class="hype-item-rating">
-                    ${'⭐'.repeat(hype.rating)} • ${hype.rating}/5
+                <div class="hype-item-avatar">${initials}</div>
+                <div class="hype-item-content">
+                    <div class="hype-item-header">
+                        <div class="hype-item-user">
+                            <span class="hype-item-name">${hype.name}</span>
+                            <span class="hype-item-rating">${ratingStars}</span>
+                        </div>
+                        <div class="hype-item-date">${formattedDate}</div>
+                    </div>
+                    <div class="hype-item-message">"${hype.message}"</div>
                 </div>
-                <div class="hype-item-message">"${hype.message}"</div>
             `;
             hypeFeed.appendChild(hypeItem);
         });
     }
 
-    // Load hypes on page load
+    // Subscribe to real-time changes
+    function subscribeToHypes() {
+        if (!supabase) return;
+        
+        supabase
+            .channel('hypes-channel')
+            .on('postgres_changes', 
+                { event: 'INSERT', schema: 'public', table: 'hypes' },
+                (payload) => {
+                    allHypes.unshift(payload.new);
+                    displayHypes();
+                }
+            )
+            .subscribe();
+    }
+
+    // Initialize on page load
     if (hypeForm) {
-        displayHypes();
+        (async () => {
+            await loadHypes();
+            displayHypes();
+            subscribeToHypes();
+        })();
     }
     console.log('%c🎬 PEDDI — Official Website', 'color: #e00e2f; font-size: 1.4em; font-weight: bold;');
     console.log('%cStarring Ram Charan · Janhvi Kapoor · Shiva Rajkumar', 'color: #aaa; font-size: 0.9em;');
