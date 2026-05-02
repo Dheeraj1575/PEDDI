@@ -132,8 +132,8 @@
     /* ======================================
        3. COUNTDOWN TIMER
     ====================================== */
-    // Target: April 30 2026 — Worldwide Release
-    const releaseDate = new Date('2026-04-30T00:00:00');
+    // Target: June 4 2026 — Worldwide Release
+    const releaseDate = new Date('2026-06-04T00:00:00');
 
     function updateCountdown() {
         // Only update if countdown elements exist (on index.html)
@@ -453,7 +453,7 @@
             e.preventDefault();
             // Open Google Calendar event creation with PEDDI movie details
             const eventTitle = 'PEDDI Movie Release';
-            const eventDate = '20260430'; // April 30, 2026
+            const eventDate = '20260604'; // June 4, 2026
             const startTime = 'T053000'; // 5:30 AM
             const endTime = 'T230000'; // 11:00 PM
             const location = 'Theaters Worldwide';

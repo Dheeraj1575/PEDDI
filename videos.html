@@ -445,7 +445,51 @@
                 videoId: '-Pu7QM3x6BM'
             },
             
+            // ===== INTERVIEWS & PRESS MEET =====
+            {
+                id: 'interview_pressmeeet_live',
+                title: 'Peddi Release Date Press Meet LIVE #GetReadyForPeddi',
+                category: 'interview',
+                videoId: 'Q4hDQ-sPjT0'
+            },
+            {
+                id: 'interview_ratnavelu',
+                title: 'DOP Ratnavelu ISC Speech | Peddi Release Date Press Meet',
+                category: 'interview',
+                videoId: 'E4i5UBhcRys'
+            },
+            {
+                id: 'interview_producer',
+                title: 'Producer Venkata Satish Kilaru Speech | Peddi Release Date Press Meet',
+                category: 'interview',
+                videoId: 'LQdbrk2UaJU'
+            },
+            {
+                id: 'interview_sukumar',
+                title: 'Director Sukumar B Speech | Peddi Release Date Press Meet',
+                category: 'interview',
+                videoId: 'Ua5ZY0V35hA'
+            },
+            {
+                id: 'interview_buchibabu',
+                title: 'Director Buchi Babu Sana Speech | Peddi Release Date Press Meet',
+                category: 'interview',
+                videoId: 'WVtlLMKdNYE'
+            },
+
             // ===== BEHIND THE SCENES =====
+            {
+                id: 'bts_peddi_pehelwan_bd',
+                title: 'PEDDI PEHELWAN Birthday Celebrations',
+                category: 'bts',
+                videoId: '60FgkAi_B2g'
+            },
+            {
+                id: 'bts_chiranjeevi_reaction',
+                title: 'Mega Star Chiranjeevi\'s Reaction to Peddi Pehelwan Glimpse | Peddi BTS',
+                category: 'bts',
+                videoId: 'IBRh36n8j2M'
+            },
             {
                 id: 'bts_tilak',
                 title: 'Tilak Varma on the sets of PEDDI',
@@ -477,10 +521,28 @@
                 videoId: '__wBsW-3j9Y'
             },
             {
+                id: 'bts_magic_of_chikiri_chikiri',
+                title: 'MAGIC of CHIKIRI CHIKIRI - 100M+ Views Special Video | Peddi BTS',
+                category: 'bts',
+                videoId: '6Jf1WKPXp6g'
+            },
+            {
                 id: 'bts_rahman_concert',
                 title: 'Team Peddi @ AR Rahman Concert Hyderabad',
                 category: 'bts',
                 videoId: 'IekW7r19K3U'
+            },
+            {
+                id: 'bts_what_is_chikiri',
+                title: 'What is Chikiri? | Peddi BTS',
+                category: 'bts',
+                videoId: 'so1oKhC4kkw'
+            },
+            {
+                id: 'bts_song_shoot_update',
+                title: 'PEDDI Song Shoot Update from Sets',
+                category: 'bts',
+                videoId: 'fYSGt_ld00A'
             },
             {
                 id: 'bts_srk_looktest',
@@ -608,6 +670,17 @@
 
                 grid.appendChild(card);
             });
+
+            // Show message if trailers section is empty
+            if (filter === 'trailer' && filtered.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #999;';
+                emptyMessage.innerHTML = `
+                    <p style="font-size: 1.2rem; margin-bottom: 10px;">🎬 Trailer is not yet released</p>
+                    <p style="font-size: 0.9rem; color: #666;">Stay tuned for the official trailer coming soon!</p>
+                `;
+                grid.appendChild(emptyMessage);
+            }
         }
 
         /* ===== FILTER VIDEOS ===== */
