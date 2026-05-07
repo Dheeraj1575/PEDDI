@@ -1274,6 +1274,31 @@ a { text-decoration: none; color: inherit; }
 }
 .footer-links a { font-size: 0.8rem; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; transition: var(--transition); }
 .footer-links a:hover { color: var(--red); }
+.footer-merchandise {
+    display: flex; justify-content: center; align-items: center; gap: 12px;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.merchandise-label { font-size: 0.75rem; color: var(--gray); letter-spacing: 1px; margin: 0; }
+.merchandise-link { 
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(196, 135, 42, 0.15);
+    border: 1px solid rgba(196, 135, 42, 0.4);
+    color: var(--red);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+.merchandise-link:hover { 
+    background: rgba(196, 135, 42, 0.3);
+    border-color: var(--red);
+    transform: translateY(-2px);
+    box-shadow: var(--glow);
+}
 .footer-line { height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 24px; }
 .footer-credits { font-size: 0.8rem; color: var(--gray2); line-height: 1.8; }
 .footer-credits.small { font-size: 0.72rem; margin-top: 4px; }
