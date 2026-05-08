@@ -304,36 +304,68 @@
     <script>
     /* ===== GALLERY IMAGES ===== */
     const images = [
-        { src: 'images/Peddi PLAIN 2.jpg',              alt: 'PEDDI Official First Look' },
-        { src: 'images/Peddi-WWM-4.jpg',                   alt: 'Ram Charan as PEDDI' },
-        { src: 'images/Peddi-Rel-Date-WWM.jpg',        alt: 'Peddi Release Date Latest Poster' },
-        { src: 'images/peddi-poster-flat-WWM (2).jpg',                   alt: 'PEDDI Pehelwan Look' },
-        { src: 'images/PEDDI-PEHELWAN-Glimpse_wwm.jpg',              alt: 'PEDDI Pehelwan Look' },
-        { src: 'images/peddi plain - WWM.jpg',              alt: 'PEDDI Movie Still' },
-        { src: 'images/Chikri-Still-1.jpg',                alt: 'Chikiri Song Still' },
-        { src: 'images/30-DAYS_PEDDI-WWM.jpg',                alt: '30 Days to go to PEDDI' },
-        { src: 'images/Chikri-Still-2.jpg',                alt: 'Chikiri Song Still' },
-        { src: 'images/Chikri-Still-3.jpg',                alt: 'Chikiri Song Still' },
-        { src: 'images/Peddi-chikiri-Song-Out-Now-Still.jpg', alt: 'Chikiri Song Still' },
-        { src: 'images/Chikri-Song-Promo-Out-Story_Still.jpg', alt: 'Chikiri Song First Look' },
-        { src: 'images/CHIKIRI_50Mplain_peddi.jpg', alt: 'Chikiri Song Still' },
-        { src: 'images/Peddi-Dolby-WWM.jpg',                 alt: 'PEDDI Dolby Atmos Poster Look' },
-        { src: 'images/Peddi 2ND Single_Plain.jpg', alt: 'Rai Rai Raa Raa Song First Look' },
-        { src: 'images/plain.jpg', alt: '18 years of Ram Charan' },
-        { src: 'images/RAI-RAI-RAA-RAA-OUT-NOW-WWM.jpg',   alt: 'Rai Rai Raa Raa Song Still' },
-        { src: 'images/Rai Rai RAA Trending_Plain.jpg',   alt: 'Rai Rai Raa Raa Song Still' },
-        { src: 'images/RAI RAI RAA RAA Plain.jpg',   alt: 'Rai Rai Raa Raa Song Still' },
-        { src:  'images/70M-Rai-Rai-Raa-RaaWWM-.jpg',      alt: 'Rai Rai Raa Raa Song Still' },
-        { src: 'images/46M-Rai-Rai-Raa-Raa-WWM-post-1.jpg',             alt: 'Rai Rai Raa Raa Song Still' },
-        { src: 'images/Peddi-Janhvi-WWM-1.jpg',            alt: 'Janhvi Kapoor Look 1' },
-        { src: 'images/Peddi-Janhvi-WWM.jpg',            alt: 'Janhvi Kapoor Look 2' },
-        { src: 'images/Peddi-HBD-Janhvi-Still.jpg',            alt: 'Janhvi Kapoor Look 3' },
-        { src: 'images/PEDDI PLAIN-1.jpg',            alt: 'PEDDI First Shot Look' },
-        { src: 'images/PEDDI PLAIN FL.jpg',                alt: 'PEDDI First Look' },
-        { src: 'images/North-America-Release-WWM.jpg',     alt: 'North America Release' },
-        { src: 'images/1(1).jpg',                          alt: 'PEDDI Behind the Scenes' },
-        { src: 'images/RC16-WM.jpg',                          alt: 'RC16 - Announcement Poster' },
-    ];
+  // ===== FEATURED / FIRST LOOKS =====
+  { src: 'images/Peddi PLAIN 2.jpg', alt: 'PEDDI First Look 1' },
+  { src: 'images/PEDDI PLAIN FL.jpg', alt: 'PEDDI First Look 2' },
+  { src: 'images/PEDDI_STILL-WWM.jpg', alt: 'PEDDI First Look 3' },
+  { src: 'images/PEDDI-PEHELWAN-Glimpse_wwm.jpg', alt: 'PEDDI Pehelwan Look 1' },
+  { src: 'images/PEDDI PLAIN2.jpg', alt: 'PEDDI First Shot Still 1' },
+  { src: 'images/PEDDI PLAIN.jpg', alt: 'PEDDI First Shot Still 2' },
+  { src: 'images/peddi-poster-flat-WWM (2).jpg', alt: 'PEDDI Pehelwan Look 2' },
+  { src: 'images/Peddi-WWM-4.jpg', alt: 'PEDDI First Shot Look' },
+  { src: 'images/peddi plain - WWM.jpg', alt: 'PEDDI Movie Still 1' },
+
+  // ===== PROMO / RELEASE =====
+  { src: 'images/Peddi-Rel-Date-WWM.jpg', alt: 'PEDDI Release Date Latest Poster' },
+  { src: 'images/30-DAYS_PEDDI-WWM.jpg', alt: 'PEDDI 30 Days to Go' },
+  { src: 'images/North-America-Release-WWM.jpg', alt: 'PEDDI North America Release ' },
+  { src: 'images/Peddi-Dolby-WWM.jpg', alt: 'PEDDI Dolby Atmos Poster Look' },
+
+  // ===== CHIKIRI SONG =====
+  { src: 'images/Chikri-Song-Promo-Out-Story_Still.jpg', alt: 'Chikiri Song First Look' },
+  { src: 'images/Chikri-Still-1.jpg', alt: 'Chikiri Song Still 1' },
+  { src: 'images/Chikri-Song WWM-30M.jpg', alt: 'Chikiri Song Still 2' },
+  { src: 'images/Chikri-Still-3.jpg', alt: 'Chikiri Song Still 3' },
+  { src: 'images/Peddi-chikiri-Song-Out-Now-Still.jpg', alt: 'Chikiri Song Still 4' },
+  { src: 'images/CHIKIRI_50Mplain_peddi.jpg', alt: 'Chikiri Song Still 5' },
+  { src: 'images/Chikiri 70M+ Plain.jpg', alt: 'Chikiri Song Still 6' },
+  { src: 'images/Chikiri 75M+ Plain.jpg', alt: 'Chikiri Song Still 7' },
+  { src: 'images/Chikri-Song-46M-WWM.jpg', alt: 'Chikiri Song Still 8' },
+  { src: 'images/Peddi chikiri plain.jpg', alt: 'Chikiri Song Still 9' },
+  { src: 'images/Chikiri 80M+ Plain.jpg', alt: 'Chikiri Song Still 10' },
+  { src: 'images/90Million_Chikiri_both_plain.jpg', alt: 'Chikiri Song Still 11' },
+  { src: 'images/CHIKIRI CHIKIRI_OUT_NOW_REEL(1).jpg', alt: 'Chikiri Song Still 12' },
+  { src: 'images/Chikiri_Smashes a CENTURY plain.jpg', alt: 'Chikiri Song Still 13' },
+  { src: 'images/200M_chikiri plain.jpg', alt: 'Chikiri Song Still 14' },
+
+  // ===== RAI RAI RAA RAA SONG =====
+  { src: 'images/Peddi 2ND Single_Plain.jpg', alt: 'Rai Rai Raa Raa Song First Look' },
+  { src: 'images/RAI-RAI-RAA-RAA-OUT-NOW-WWM.jpg', alt: 'Rai Rai Raa Raa Song Still 1' },
+  { src: 'images/Rai Rai RAA Trending_Plain.jpg', alt: 'Rai Rai Raa Raa Song Still 2' },
+  { src: 'images/RAI RAI RAA RAA Plain.jpg', alt: 'Rai Rai Raa Raa Song Still 3' },
+  { src: 'images/COVER-WWM.jpg', alt: 'Rai Rai Raa Raa Song Still 4' },
+  { src: 'images/70M-Rai-Rai-Raa-RaaWWM-.jpg', alt: 'Rai Rai Raa Raa Song Still 5' },
+  { src: 'images/46M-Rai-Rai-Raa-Raa-WWM-post-1.jpg', alt: 'Rai Rai Raa Raa Song Still 6' },
+  { src: 'images/31M-Rai-Rai-Raa-Raa_WWMpost.jpg', alt: 'Rai Rai Raa Raa Song Still 7' },
+  { src: 'images/Anthem-of-GRIT-is-a-sensation-globally-WWM-post.jpg', alt: 'Rai Rai Raa Raa Song Still 8' },
+  { src: 'images/IMG_5323.jpg', alt: 'Rai Rai Raa Raa Song Still 9' },
+  { src: 'images/IMG_5328.jpg', alt: 'Rai Rai Raa Raa Song Still 10' },
+  { src: 'images/IMG_5330.jpg', alt: 'Rai Rai Raa Raa Song Still 11' },
+  { src: 'images/PEDDI STILL 02.jpg', alt: 'Rai Rai Raa Raa Song Still 12' },
+
+  // ===== JANHVI KAPOOR STILLS =====
+  { src: 'images/Peddi-Janhvi-WWM-1.jpg', alt: 'Janhvi Kapoor Look 1' },
+  { src: 'images/Peddi-Janhvi-WWM.jpg', alt: 'Janhvi Kapoor Look 2' },
+  { src: 'images/Peddi-HBD-Janhvi-Still.jpg', alt: 'Janhvi Kapoor Birthday Still' },
+
+  // ===== EXTRA STILLS / BTS =====
+  { src: 'images/plain.jpg', alt: '18 Years of Ram Charan' },
+  { src: 'images/PEDDI PLAIN-1.jpg', alt: 'PEDDI Movie Still 2' },
+  { src: 'images/RC16-WM.jpg', alt: 'PEDDI Movie Announcement Poster' },
+  { src: 'images/1(1).jpg', alt: 'PEDDI Behind the Scenes 1' },
+  { src: 'images/Peddi BTS-2.jpg', alt: 'PEDDI Behind the Scenes 2' },
+  { src: 'images/3.jpg', alt: 'PEDDI Behind the Scenes 3' },
+];
 
     /* ===== BUILD GRID ===== */
     const grid = document.getElementById('galleryGrid');
