@@ -766,6 +766,19 @@
             subscribeToHypes();
         })();
     }
+
+    /* ======================================
+       EVENTS LIST SCROLLER
+    ====================================== */
+    // Scroller is now manual only - users can scroll through events manually
+    const eventsList = document.getElementById('eventsList');
+    const eventItems = document.querySelectorAll('.event-item');
+    
+    if (eventsList && eventItems.length > 0) {
+        // Events scroller is ready for manual scrolling with smooth behavior
+        // No auto-scroll - only responds to user input
+    }
+
     console.log('%c🎬 PEDDI — Official Website', 'color: #e00e2f; font-size: 1.4em; font-weight: bold;');
     console.log('%cStarring Ram Charan · Janhvi Kapoor · Shiva Rajkumar', 'color: #aaa; font-size: 0.9em;');
 

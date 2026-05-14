@@ -48,7 +48,12 @@
 
     <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
-        <div class="nav-logo" id="hamburger" style="cursor: pointer;">PEDDI</div>
+        <div class="nav-logo" id="hamburger" style="cursor: pointer;">
+            <svg class="nav-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12h18M3 6h18M3 18h18"></path>
+            </svg>
+            <span>PEDDI</span>
+        </div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home" class="nav-link active" id="nav-home">Home</a></li>
             <li><a href="#story" class="nav-link" id="nav-story">Story</a></li>
@@ -210,7 +215,7 @@
                 </div>
                 <div class="cast-card-new fade-in">
                     <div class="cast-image-wrap">
-                        <img src="images/SRK-HBD-Peddi-WWM.jpg" alt="Shiva Rajkumar" class="cast-image" />
+                        <img src="images/SHIVANNA X_WWM.jpg" alt="Shiva Rajkumar" class="cast-image" />
                         <div class="cast-glow"></div>
                     </div>
                     <div class="cast-info-new">
@@ -296,14 +301,26 @@
                         <span class="panel-icon">📅</span>
                         <h3 class="panel-title">Events &amp; Announcements</h3>
                     </div>
-                    <div class="events-list">
+                    <div class="events-scroller-wrapper">
+                        <div class="events-list" id="eventsList">
+                            <div class="event-item">
+                            <div class="event-icon-wrap">
+                                <span class="event-icon">🎬</span>
+                            </div>
+                            <div class="event-content">
+                                <h4 class="event-title">TRAILER LAUNCH</h4>
+                                <p class="event-date">MAY 18TH 2026</p>
+                                <p class="event-desc">Witness the epic first look at PEDDI. A spectacular premiere of our official trailer featuring stunning visuals and intense action sequences.</p>
+                                <span class="event-tag music">MOVIE TRAILER LAUNCH EVENT</span>
+                            </div>
+                        </div>
                         <div class="event-item">
                             <div class="event-icon-wrap">
                                 <span class="event-icon">🎵</span>
                             </div>
                             <div class="event-content">
-                                <h4 class="event-title">Pre Release Event</h4>
-                                <p class="event-date">TBA 2026</p>
+                                <h4 class="event-title">SOUND OF PEDDI AT BHOPAL</h4>
+                                <p class="event-date">MAY 23RD 2026</p>
                                 <p class="event-desc">Grand music launch event featuring the musical maestros behind PEDDI.</p>
                                 <span class="event-tag music">MUSIC EVENT</span>
                             </div>
@@ -329,6 +346,7 @@
                                 <p class="event-desc">PEDDI releases across theatres worldwide simultaneously in 5 languages.</p>
                                 <span class="event-tag release">THEATRICAL</span>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
