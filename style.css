@@ -1958,6 +1958,8 @@ a { text-decoration: none; color: inherit; }
     .hype-item-name {
         font-size: 0.95rem;
     }
+    
+    .hype-card-text h3 {
         font-size: 1.2rem;
     }
     
