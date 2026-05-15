@@ -290,6 +290,9 @@
             <button class="video-tab-btn active" onclick="filterVideos('all')">
                 <i class="fas fa-clapperboard"></i> All
             </button>
+            <button class="video-tab-btn" onclick="filterVideos('cast')">
+                <i class="fas fa-star"></i> Meet The Cast
+            </button>
             <button class="video-tab-btn" onclick="filterVideos('glimpse')">
                 <i class="fas fa-eye"></i> Glimpses
             </button>
@@ -317,6 +320,20 @@
     <script>
         /* ===== VIDEOS DATA ===== */
         const videosData = [
+            // ===== MEET THE CAST =====
+            {
+                id: 'cast_divyendu',
+                title: 'Say Hi to Rambujji 💥',
+                category: 'cast',
+                videoId: 'CTST8hiHrJ4'
+            },
+            {
+                id: 'cast_shiva_rajkumar',
+                title: 'Shiva Rajkumar garu as Gournaidu',
+                category: 'cast',
+                videoId: '9VcBCK0OsdA'
+            },
+
             // ===== GLIMPSES (REORDERED: PEHELWAN FIRST) =====
             {
                 id: 'pehelwan_tel',
@@ -478,12 +495,6 @@
             },
 
             // ===== BEHIND THE SCENES =====
-            {
-                id: 'bts_first_shot',
-                title: 'Shiva Rajkumar garu as Gournaidu',
-                category: 'bts',
-                videoId: '9VcBCK0OsdA'
-            },
             {
                 id: 'bts_song_launch',
                 title: '#SoundOfPeddi will echo in BHOPAL from May 23rd💥💥',
