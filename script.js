@@ -25,17 +25,30 @@
 
     /* ======================================
        1. NAVBAR — Sticky + Active Section
+       (Optimized with throttling for performance)
     ====================================== */
-    window.addEventListener('scroll', () => {
-        if (navbar) {
-            if (window.scrollY > 60) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+    let scrollTimeout;
+    let lastScrollTime = 0;
+    const SCROLL_THROTTLE = 100; // milliseconds
+    
+    // Throttled scroll handler for better performance
+    function handleScroll() {
+        const now = Date.now();
+        if (now - lastScrollTime > SCROLL_THROTTLE) {
+            if (navbar) {
+                if (window.scrollY > 60) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
             }
+            updateActiveNav();
+            lastScrollTime = now;
         }
-        updateActiveNav();
-    });
+    }
+    
+    // Use passive listener for better scroll performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     function updateActiveNav() {
         const sections = ['home', 'story', 'cast', 'gallery', 'videos', 'trailer', 'events'];
