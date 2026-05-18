@@ -311,6 +311,9 @@
             <button class="video-tab-btn" onclick="filterVideos('interview')">
                 <i class="fas fa-microphone"></i> Interviews
             </button>
+            <button class="video-tab-btn" onclick="filterVideos('live')">
+                <i class="fas fa-circle" style="color: #ff0000; animation: pulse 1.5s infinite;"></i> Live Streams
+            </button>
         </div>
 
         <!-- VIDEOS GRID -->
@@ -320,6 +323,38 @@
     <script>
         /* ===== VIDEOS DATA ===== */
         const videosData = [
+            // ===== TRAILERS =====
+            {
+                id: 'trailer_official',
+                title: 'PEDDI Official Trailer - Telugu',
+                category: 'trailer',
+                videoId: 'sF2dj7ycZvA'
+            },
+            {
+                id: 'trailer_official_hin',
+                title: 'PEDDI Official Trailer - Hindi',
+                category: 'trailer',
+                videoId: '9kYn_vpkiio'
+            },
+            {
+                id: 'trailer_official_tam',
+                title: 'PEDDI Official Trailer - Tamil',
+                category: 'trailer',
+                videoId: 'qu3tPDCMNeU'
+            },
+            {
+                id: 'trailer_official_mal',
+                title: 'PEDDI Official Trailer - Malayalam',
+                category: 'trailer',
+                videoId: 'KhsWkRS0xxQ'
+            },
+            {
+                id: 'trailer_official_kan',
+                title: 'Peddi Trailer (Kannada)',
+                category: 'trailer',
+                videoId: '2td5KxAAzh0'
+            },
+
             // ===== MEET THE CAST =====
             {
                 id: 'cast_jagapathi_babu',
@@ -470,34 +505,28 @@
             
             // ===== INTERVIEWS & PRESS MEET =====
             {
-                id: 'interview_pressmeeet_live',
-                title: 'Peddi Release Date Press Meet LIVE #GetReadyForPeddi',
+                id: 'interview_buchi_babu',
+                title: 'Buchi Babu Sana Interview With Ram Venkat Srikar',
                 category: 'interview',
-                videoId: 'Q4hDQ-sPjT0'
+                videoId: 'rRklZgGDaFk'
             },
             {
                 id: 'interview_ratnavelu',
-                title: 'DOP Ratnavelu ISC Speech | Peddi Release Date Press Meet',
+                title: 'PEDDI Exclusive: Cinematographer Rathnavelu Interview With Ram Venkat Srikar',
                 category: 'interview',
-                videoId: 'E4i5UBhcRys'
+                videoId: 'w0LV4n0pi68'
             },
             {
-                id: 'interview_producer',
-                title: 'Producer Venkata Satish Kilaru Speech | Peddi Release Date Press Meet',
+                id: 'interview_avinash_kolla',
+                title: 'PEDDI Production Designer Avinash Kolla Interview With Ram Venkat Srikar',
                 category: 'interview',
-                videoId: 'LQdbrk2UaJU'
+                videoId: 'jo8SA8QERz8'
             },
             {
-                id: 'interview_sukumar',
-                title: 'Director Sukumar B Speech | Peddi Release Date Press Meet',
+                id: 'interview_nabakanth',
+                title: 'Peddi Movie Fight Master Nabakanth Exclusive Interview',
                 category: 'interview',
-                videoId: 'Ua5ZY0V35hA'
-            },
-            {
-                id: 'interview_buchibabu',
-                title: 'Director Buchi Babu Sana Speech | Peddi Release Date Press Meet',
-                category: 'interview',
-                videoId: 'WVtlLMKdNYE'
+                videoId: 'eCie74Kne8k'
             },
 
             // ===== BEHIND THE SCENES =====
@@ -634,6 +663,86 @@
                 title: 'Peddi Pehelwan Glimpse - Kannada',
                 category: 'teaser',
                 videoId: 'n4RYUGfYGU0'
+            },
+
+            // ===== LIVE STREAMS =====
+            {
+                id: 'live_event_1',
+                title: '🔴 Peddi Trailer Takeover Event LIVE',
+                category: 'live',
+                videoId: '1Ioap46edNs'
+            },
+            {
+                id: 'live_event_1_tel',
+                title: 'Mega Powerstar Ram Charan Speech | Peddi Trailer Takeover Event',
+                category: 'live',
+                videoId: '8Y_EGeW_9tw'
+            },
+            {
+                id: 'live_event_1_kan',
+                title: 'Janhvi Kapoor Speech | Peddi Trailer Takeover Event',
+                category: 'live',
+                videoId: 'tLTa2-N5n8U'
+            },
+            {
+                id: 'live_event_1_mal',
+                title: 'A R Rahman Speech | Peddi Trailer Takeover Event',
+                category: 'live',
+                videoId: 'QIgQfLNa3Vc'
+            },
+            {
+                id: 'live_event_1_tel',
+                title: 'Producer Venkata Satish Kilaru Speech | Peddi Trailer Takeover Event',
+                category: 'live',
+                videoId: 'uuceH-uxLFo'
+            },
+            {
+                id: 'live_event_1_tam',
+                title: 'Actor Divyendu Speech | Peddi Trailer Takeover Event',
+                category: 'live',
+                videoId: 'TEf2eomxoD4'
+            },
+            {
+                id: 'live_event_1_hin',
+                title: 'DOP Ratnavelu ISC Speech | Peddi Trailer Takeover Event',
+                category: 'live',
+                videoId: '-i9KPwHaY-c'
+            },
+            {
+                id: 'live_event_2',
+                title: 'Director Buchi Babu Sana Speech | Peddi Trailer Takeover Event',
+                category: 'live',
+                videoId: '4ovntSnOQLw'
+            },
+            {
+                id: 'interview_pressmeeet_live',
+                title: 'Peddi Release Date Press Meet LIVE #GetReadyForPeddi',
+                category: 'live',
+                videoId: 'Q4hDQ-sPjT0'
+            },
+            {
+                id: 'interview_ratnavelu',
+                title: 'DOP Ratnavelu ISC Speech | Peddi Release Date Press Meet',
+                category: 'live',
+                videoId: 'E4i5UBhcRys'
+            },
+            {
+                id: 'interview_producer',
+                title: 'Producer Venkata Satish Kilaru Speech | Peddi Release Date Press Meet',
+                category: 'live',
+                videoId: 'LQdbrk2UaJU'
+            },
+            {
+                id: 'interview_sukumar',
+                title: 'Director Sukumar B Speech | Peddi Release Date Press Meet',
+                category: 'live',
+                videoId: 'Ua5ZY0V35hA'
+            },
+            {
+                id: 'interview_buchibabu',
+                title: 'Director Buchi Babu Sana Speech | Peddi Release Date Press Meet',
+                category: 'live',
+                videoId: 'WVtlLMKdNYE'
             }
         ];
 

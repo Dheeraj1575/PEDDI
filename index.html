@@ -275,17 +275,27 @@
             <h2 class="section-title fade-in">Official Trailer</h2>
             <div class="section-divider"></div>
             <div class="trailer-video-wrap fade-in">
-                <div class="video-placeholder large" data-video="2y_DH5gIrCU" id="trailerPlaceholder">
-                    <img src="images/peddi plain - WWM.jpg" alt="Peddi First Shot Glimpse" class="video-thumb large-thumb" />
-                    <div class="trailer-coming-soon">
-                        <p class="trailer-label">PEDDI FIRST SHOT</p>
-                        <p class="trailer-sub">Experience the beginning</p>
+                <div id="trailerThumbnail" style="position: relative; cursor: pointer; border-radius: 12px; overflow: hidden;">
+                    <img src="images/PEDDI-TRAILER-OUTNOW.jpg" alt="Peddi Official Trailer" style="width: 100%; height: auto; display: block; border-radius: 12px;">
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(196, 135, 42, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
+                        <svg viewBox="0 0 24 24" fill="white" style="width: 40px; height: 40px; margin-left: 4px;"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                    <button class="play-btn large-play" aria-label="Play video">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    </button>
                 </div>
+                <video id="trailerVideoPlayer" class="trailer-video" controls style="width: 100%; height: 100%; border-radius: 12px; display: none;">
+                    <source src="Peddi_Official_Trailer_Telugu_｜_Ram_Charan_｜_Janhvi_Kapoor_｜_A_R.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
+            
+            <script>
+                document.getElementById('trailerThumbnail').addEventListener('click', function() {
+                    var thumbnail = document.getElementById('trailerThumbnail');
+                    var video = document.getElementById('trailerVideoPlayer');
+                    thumbnail.style.display = 'none';
+                    video.style.display = 'block';
+                    video.play();
+                });
+            </script>
         </div>
     </section>
 
