@@ -3117,3 +3117,193 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
         border: 2px solid var(--white);
     }
 }
+
+/* ============ MOBILE OPTIMIZATION IMPROVEMENTS ============ */
+
+/* Touch target optimization - minimum 44x44px for mobile devices */
+@media (max-width: 768px) {
+    /* Ensure all buttons and interactive elements are at least 44px tall */
+    button, a.btn-primary, a.btn-secondary, a.btn-outline {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Improve spacing on mobile for better readability */
+    body {
+        line-height: 1.8;
+    }
+    
+    h1, .hero-tagline, .section-title {
+        line-height: 1.4;
+        margin-bottom: 1.5rem;
+    }
+    
+    p, .story-text {
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 1.2rem;
+    }
+    
+    /* Better navbar spacing on mobile */
+    .navbar {
+        padding: 12px 20px;
+        height: 70px;
+    }
+    
+    .nav-links {
+        display: none; /* Hide desktop nav on mobile, use sidebar */
+    }
+    
+    /* Improved hero section for mobile */
+    .hero-content {
+        padding: 60px 20px 40px;
+    }
+    
+    .hero-main-image {
+        max-width: 90%;
+        height: auto;
+    }
+    
+    .hero-tagline {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+    }
+    
+    /* Better countdown on mobile */
+    .countdown {
+        gap: 8px;
+        margin: 2rem 0;
+    }
+    
+    .countdown-box {
+        padding: 12px 8px;
+        min-width: 60px;
+    }
+    
+    .count-num {
+        font-size: 1.4rem;
+    }
+    
+    .count-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Better gallery grid on mobile */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .gallery-preview-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Improved cast grid */
+    .cast-preview-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .cast-card-new {
+        margin: 0 auto;
+        max-width: 280px;
+    }
+    
+    /* Better image scaling */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .story-bg-img, .trailer-bg-img {
+        min-height: 300px;
+        object-fit: cover;
+    }
+    
+    /* Improved container padding */
+    .container {
+        padding: 20px 16px;
+    }
+    
+    section {
+        padding: 40px 0;
+    }
+    
+    /* Better modal/popup experience on mobile */
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+        border-radius: 16px;
+    }
+    
+    /* Prevent text from being too large on landscape mode */
+    @media (max-height: 500px) {
+        .hero-content {
+            padding: 40px 20px 20px;
+        }
+        
+        .hero-tagline {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+        
+        .countdown {
+            margin: 1rem 0;
+        }
+    }
+}
+
+/* Extra small devices optimization */
+@media (max-width: 480px) {
+    /* Ensure touch targets on very small screens */
+    button, a.btn-primary, a.btn-secondary {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+    
+    /* Reduce padding on very small screens */
+    .container {
+        padding: 16px 12px;
+    }
+    
+    section {
+        padding: 32px 0;
+    }
+    
+    /* Single column layout */
+    .gallery-grid, .cast-preview-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Improved text sizing */
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    p, .story-text {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    
+    /* Smaller countdown on very small screens */
+    .countdown {
+        gap: 6px;
+    }
+    
+    .countdown-box {
+        padding: 10px 6px;
+        min-width: 55px;
+    }
+    
+    /* Prevent horizontal scroll on landscape */
+    body, html {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+}
