@@ -555,10 +555,28 @@
             
             // ===== INTERVIEWS & PRESS MEET =====
             {
+                id: 'interview_ram_charan',
+                title: 'Peddi Coffee Table Chat | Ram Charan | Divyenndu | Boman Irani',
+                category: 'interview',
+                videoId: '3k5OS-RFf_E'
+            },
+            {
                 id: 'interview_peddi_memories',
                 title: 'Driving Through Peddi Memories | Ram Charan | Buchi Babu Sana',
                 category: 'interview',
                 videoId: 'z0z0z8oxA5w'
+            },
+            {
+                id: 'interview_janhvi_kapoor',
+                title: 'Jagapathi Babu Interview With Ram Venkat Srikar',
+                category: 'interview',
+                videoId: 'mySmff54NJg&t=77s'
+            },
+            {
+                id: 'interview_divyenndu',
+                title: 'Divyenndu Interview With Ram Venkat Srikar',
+                category: 'interview',
+                videoId: 'F5yL0alUFKk'
             },
             {
                 id: 'interview_buchi_babu',
@@ -729,8 +747,62 @@
 
             // ===== LIVE STREAMS =====
             {
+                id: 'live_event_peddi_pressmeet_bangalore',
+                title: 'PEDDI Bangalore Press Meet Highlights | Ram Charan | Buchi Babu Sana | Janhvi Kapoor | Shiva Rajkumar',
+                category: 'live',
+                videoId: 'Aw_J2xAR5m8'
+            },
+            {
+                id: 'live_event_peddi_pressmeet_bangalore',
+                title: '🔴 PEDDI Bangalore Press Meet LIVE | Ram Charan | Buchi Babu Sana | Janhvi Kapoor | Shiva Rajkumar',
+                category: 'live',
+                videoId: 'jt-7gMkEjC4&t=1581s'
+            },
+            {
+                id: 'live_event_peddi_pressmeet_bangalore',
+                title: 'Shiva Rajkumar Speech @ PEDDI Bangalore Press Meet',
+                category: 'live',
+                videoId: 'GHcxfu9dCus'
+            },
+            {
+                id: 'live_event_peddi_pressmeet_bangalore',
+                title: 'Mega Powerstar Ram Charan Speech @ PEDDI Bangalore Press Meet',
+                category: 'live',
+                videoId: 'K88vgehUnE8'
+            },
+            {
+                id: 'live_event_peddi_pressmeet_bangalore',
+                title: 'Actress Janhvi Kapoor Speech @ PEDDI Bangalore Press Meet',
+                category: 'live',
+                videoId: '9iZko-vf1vw&t=1s '
+            },
+            {
+                id: 'live_event_peddi_pressmeet_bangalore',
+                title: 'Producer Venkata Satish Kilaru Speech @ PEDDI Bangalore Press Meet',
+                category: 'live',
+                videoId: 'lATh609J4i0'
+            },
+            {
+                id: 'live_event_peddi_pressmeet_bangalore',
+                title: 'Mega Powerstar Ram Charan Entry @ PEDDI Bangalore Press Meet',
+                category: 'live',
+                videoId: 'JfPfL9mMIUw'
+            },
+            {
+                id: 'live_event_peddi_pressmeet_bangalore',
+                title: 'Janhvi Kapoor Entry @ PEDDI Bangalore Press Meet',
+                category: 'live',
+                videoId: 'nNLXrlwGao0'
+            },
+            {
                 id: 'live_event_peddi_aawaz',
-                title: '#PEDDIKiAawaz Grand Event LIVE | Ram Charan | Buchi Babu Sana | Janhvi Kapoor | A R Rahman',
+                title: '#PeddiKiAawaz - Indias Biggest Movie Concert was a sensational success 💥💥',
+                category: 'live',
+                videoId: 'VM8Sd9caJqo'
+            },
+            {
+                id: 'live_event_peddi_aawaz',
+                title: '🔴 #PEDDIKiAawaz Grand Event LIVE | Ram Charan | Buchi Babu Sana | Janhvi Kapoor | A R Rahman',
                 category: 'live',
                 videoId: 'fLpxHYnehUk'
             },
@@ -936,14 +1008,15 @@
             filtered.forEach(video => {
                 const card = document.createElement('div');
                 card.className = 'video-card';
-                const thumbnailUrl = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
+                const cleanVideoId = video.videoId.split('&')[0]; // Remove timestamp parameters
+                const thumbnailUrl = `https://img.youtube.com/vi/${cleanVideoId}/hqdefault.jpg`;
                 
                 card.innerHTML = `
                     <div class="video-title-bar">
                         <p>${video.title}</p>
                     </div>
                     <div class="video-player-wrap">
-                        <div class="video-thumbnail-fallback" style="background-image: url('${thumbnailUrl}');" data-video-id="${video.videoId}" data-title="${video.title}">
+                        <div class="video-thumbnail-fallback" style="background-image: url('${thumbnailUrl}');" data-video-id="${cleanVideoId}" data-title="${video.title}">
                             <div class="play-button-fallback">
                                 <i class="fas fa-play"></i>
                             </div>
@@ -951,13 +1024,13 @@
                         <iframe 
                             width="100%"
                             height="100%"
-                            src="https://www.youtube.com/embed/${video.videoId}"
+                            src="https://www.youtube.com/embed/${cleanVideoId}${video.videoId.includes('&') ? '?start=' + video.videoId.split('&')[1] : ''}"
                             title="${video.title}"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin"
                             allowfullscreen
-                            data-video-id="${video.videoId}">
+                            data-video-id="${cleanVideoId}">
                         </iframe>
                     </div>
                 `;
@@ -969,7 +1042,7 @@
                 // Click fallback to open on YouTube
                 fallback.addEventListener('click', function(e) {
                     e.preventDefault();
-                    window.open(`https://www.youtube.com/watch?v=${video.videoId}`, '_blank');
+                    window.open(`https://www.youtube.com/watch?v=${cleanVideoId}`, '_blank');
                 });
 
                 // Detect if iframe fails to load
