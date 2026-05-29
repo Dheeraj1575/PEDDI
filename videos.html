@@ -455,6 +455,68 @@
                 videoId: 'lvodg_AjQpY'
             },
 
+            // ===== PEDDI AUDIO JUKEBOX ===== 
+            {
+                id: 'jukebox_tel',
+                title: 'Peddi Telugu Audio Jukebox',
+                category: 'song',
+                videoId: 'l7UIt0RyQ_4'
+            },
+            {
+                id: 'jukebox_hin',
+                title: 'Peddi (Full Album) Hindi',
+                category: 'song',
+                videoId: 'qkw72iYxn0Y'
+            },
+            {
+                id: 'jukebox_tam',
+                title: 'Peddi Tamil Audio Jukebox',
+                category: 'song',
+                videoId: 'XO7Rrx2E1uI'
+            },
+            {
+                id: 'jukebox_mal',
+                title: 'Peddi Malayalam Audio Jukebox',
+                category: 'song',
+                videoId: 'xkr-6GubaTI'
+            },
+            {
+                id: 'jukebox_kan',
+                title: 'Peddi Kannada Audio Jukebox',
+                category: 'song',
+                videoId: '_XftnYu7BBY'
+            },
+            // ===== MASSA MASSA AUDIO SONG =====
+            {
+                id: 'song_massa_tel',
+                title: 'Massa Massa Audio Song | Peddi',
+                category: 'song',
+                videoId: 'K_nPkP9Is-k'
+            },
+            {
+                id: 'song_massa_hin',
+                title: 'PEDDI: Massa Massa (Full Audio)',
+                category: 'song',
+                videoId: '_OnDNMo2Zag'
+            },
+            {
+                id: 'song_massa_tam',
+                title: 'Massa Massa Audio Song | Peddi',
+                category: 'song',
+                videoId: 'Blrn4LlfLp8'
+            },
+            {
+                id: 'song_massa_mal',
+                title: 'Massa Massa Audio Song | Peddi',
+                category: 'song',
+                videoId: 'YnHRBgv90Fs'
+            },
+            {
+                id: 'song_massa_kan',
+                title: 'Massa Massa Audio Song | Peddi',
+                category: 'song',
+                videoId: 'KwCB6pDrBsE'
+            },
             // ===== HELLALLALLO SONG =====
             {
                 id: 'song_hellallallo_tel',
@@ -603,7 +665,7 @@
                 videoId: 'eCie74Kne8k'
             },
 
-            // ===== BEHIND THE SCENES =====
+            // ===== BEHIND THE SCENES =====            
             {
                 id: 'bts_peddi_aawaz_event',
                 title: 'Peddi Ki Aawaz Grand Event on 23rd May',
@@ -746,6 +808,42 @@
             },
 
             // ===== LIVE STREAMS =====
+            {
+                id: 'bts_delhi_pressmeet',
+                title: '🔴 PEDDI Delhi Press Conference LIVE | Ram Charan | Buchi Babu Sana | Janhvi Kapoor | A R Rahman',
+                category: 'live',
+                videoId: '9viOD_cTFQ0'
+            },
+            {
+                id: 'bts_delhi_pressmeet',
+                title: 'Mega Powerstar Ram Charan Speech | PEDDI Delhi Press Conference',
+                category: 'live',
+                videoId: 'pEOx7e0zXx4'
+            },
+            {
+                id: 'bts_delhi_pressmeet',
+                title: 'Venkata Satish Kilaru Speech | PEDDI Delhi Press Conference',
+                category: 'live',
+                videoId: 'kBZ4ZbJWHFU'
+            },
+            {
+                id: 'bts_delhi_pressmeet',
+                title: 'Janhvi Kapoor Speech | PEDDI Delhi Press Conference',
+                category: 'live',
+                videoId: 'HqVO2YA90Ww' 
+            },
+            {
+                id: 'bts_delhi_pressmeet',
+                title: 'Boman Irani Speech | PEDDI Delhi Press Conference',
+                category: 'live',
+                videoId: 'bTVNnIQB7Gg'
+            },
+            {
+                id: 'bts_delhi_pressmeet',
+                title: 'Divyenndu Speech | PEDDI Delhi Press Conference',
+                category: 'live',
+                videoId: 'itC9Og_8_g0'
+            },
             {
                 id: 'live_event_peddi_pressmeet_bangalore',
                 title: 'PEDDI Bangalore Press Meet Highlights | Ram Charan | Buchi Babu Sana | Janhvi Kapoor | Shiva Rajkumar',
@@ -1009,14 +1107,15 @@
                 const card = document.createElement('div');
                 card.className = 'video-card';
                 const cleanVideoId = video.videoId.split('&')[0]; // Remove timestamp parameters
-                const thumbnailUrl = `https://img.youtube.com/vi/${cleanVideoId}/hqdefault.jpg`;
+                // Try multiple thumbnail quality levels
+                const thumbnailUrl = `https://img.youtube.com/vi/${cleanVideoId}/maxresdefault.jpg`;
                 
                 card.innerHTML = `
                     <div class="video-title-bar">
                         <p>${video.title}</p>
                     </div>
                     <div class="video-player-wrap">
-                        <div class="video-thumbnail-fallback" style="background-image: url('${thumbnailUrl}');" data-video-id="${cleanVideoId}" data-title="${video.title}">
+                        <div class="video-thumbnail-fallback" data-video-id="${cleanVideoId}" data-title="${video.title}">
                             <div class="play-button-fallback">
                                 <i class="fas fa-play"></i>
                             </div>
@@ -1038,6 +1137,31 @@
                 const wrapper = card.querySelector('.video-player-wrap');
                 const fallback = card.querySelector('.video-thumbnail-fallback');
                 const iframe = card.querySelector('iframe');
+
+                // Preload thumbnail and try fallback qualities if needed
+                const thumbnailQualities = [
+                    `https://img.youtube.com/vi/${cleanVideoId}/maxresdefault.jpg`,
+                    `https://img.youtube.com/vi/${cleanVideoId}/sddefault.jpg`,
+                    `https://img.youtube.com/vi/${cleanVideoId}/hqdefault.jpg`,
+                    `https://img.youtube.com/vi/${cleanVideoId}/mqdefault.jpg`,
+                    `https://img.youtube.com/vi/${cleanVideoId}/default.jpg`
+                ];
+
+                let currentQualityIndex = 0;
+                function loadThumbnailWithFallback() {
+                    if (currentQualityIndex < thumbnailQualities.length) {
+                        const img = new Image();
+                        img.onload = () => {
+                            fallback.style.backgroundImage = `url('${thumbnailQualities[currentQualityIndex]}')`;
+                        };
+                        img.onerror = () => {
+                            currentQualityIndex++;
+                            loadThumbnailWithFallback();
+                        };
+                        img.src = thumbnailQualities[currentQualityIndex];
+                    }
+                }
+                loadThumbnailWithFallback();
 
                 // Click fallback to open on YouTube
                 fallback.addEventListener('click', function(e) {
