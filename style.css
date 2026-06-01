@@ -1349,7 +1349,16 @@ a { text-decoration: none; color: inherit; }
 .footer-line { height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 24px; }
 .footer-credits { font-size: 0.8rem; color: var(--gray2); line-height: 1.8; }
 .footer-credits.small { font-size: 0.72rem; margin-top: 4px; }
-.footer-dev { font-size: 0.75rem; color: var(--gray); letter-spacing: 0.5px; }
+.footer-dev { 
+  font-size: 0.85rem; 
+  color: var(--white);
+  letter-spacing: 0.5px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 .dev-name { 
     color: #C4872A; 
     font-weight: 600; 
@@ -1993,6 +2002,21 @@ a { text-decoration: none; color: inherit; }
     .hype-feed {
         max-height: 300px;
     }
+}
+
+.footer-dev a {
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  text-shadow: 0 0 10px rgba(196, 135, 42, 0.3);
+}
+
+.footer-dev a:hover {
+  color: var(--gold);
+  text-shadow: var(--glow);
+  transform: scale(1.05);
 }
 
 @media (max-width: 480px) {
